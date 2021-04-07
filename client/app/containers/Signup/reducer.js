@@ -9,7 +9,6 @@ import {
   SIGNUP_RESET,
   SET_SIGNUP_LOADING,
   SET_SIGNUP_SUBMITTING,
-  SUBSCRIBE_CHANGE,
   SET_SIGNUP_FORM_ERRORS
 } from './constants';
 
@@ -22,8 +21,7 @@ const initialState = {
   },
   formErrors: {},
   isSubmitting: false,
-  isLoading: false,
-  isSubscribed: false
+  isLoading: false
 };
 
 const signupReducer = (state = initialState, action) => {
@@ -32,11 +30,6 @@ const signupReducer = (state = initialState, action) => {
       return {
         ...state,
         signupFormData: { ...state.signupFormData, ...action.payload }
-      };
-    case SUBSCRIBE_CHANGE:
-      return {
-        ...state,
-        isSubscribed: !state.isSubscribed
       };
     case SET_SIGNUP_FORM_ERRORS:
       return {

@@ -9,7 +9,6 @@ const auth = require('../../middleware/auth');
 
 // Bring in Models & Helpers
 const User = require('../../models/user');
-const mailchimp = require('../../services/mailchimp');
 const mailgun = require('../../services/mailgun');
 const keys = require('../../config/keys');
 
@@ -74,7 +73,6 @@ router.post('/register', (req, res) => {
   const firstName = req.body.firstName;
   const lastName = req.body.lastName;
   const password = req.body.password;
-  const isSubscribed = req.body.isSubscribed;
 
   if (!email) {
     return res.status(400).json({ error: 'You must enter an email address.' });
@@ -97,15 +95,6 @@ router.post('/register', (req, res) => {
       return res
         .status(400)
         .json({ error: 'That email address is already in use.' });
-    }
-
-    let subscribed = false;
-    if (isSubscribed) {
-      const result = await mailchimp.subscribeToNewsletter(email);
-
-      if (result.status === 'subscribed') {
-        subscribed = true;
-      }
     }
 
     const user = new User({
@@ -141,7 +130,6 @@ router.post('/register', (req, res) => {
           jwt.sign(payload, secret, { expiresIn: tokenLife }, (err, token) => {
             res.status(200).json({
               success: true,
-              subscribed,
               token: `Bearer ${token}`,
               user: {
                 id: user.id,

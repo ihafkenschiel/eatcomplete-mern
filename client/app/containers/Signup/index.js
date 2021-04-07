@@ -26,7 +26,6 @@ class Signup extends React.PureComponent {
       formErrors,
       isLoading,
       isSubmitting,
-      isSubscribed,
       signupChange,
       signUp,
       subscribeChange
@@ -109,12 +108,6 @@ class Signup extends React.PureComponent {
             </Col>
           </Row>
           <hr />
-          <Checkbox
-            id={'subscribe'}
-            label={'Subscribe to newsletter'}
-            checked={isSubscribed}
-            toggleCheckboxChange={subscribeChange}
-          />
           <div className='d-flex flex-column flex-md-row align-items-md-center justify-content-between'>
             <Button
               type='submit'
@@ -138,8 +131,7 @@ const mapStateToProps = state => {
     signupFormData: state.signup.signupFormData,
     formErrors: state.signup.formErrors,
     isLoading: state.signup.isLoading,
-    isSubmitting: state.signup.isSubmitting,
-    isSubscribed: state.signup.isSubscribed
+    isSubmitting: state.signup.isSubmitting
   };
 };
 

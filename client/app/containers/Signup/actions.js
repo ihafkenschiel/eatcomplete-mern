@@ -48,7 +48,6 @@ export const signUp = () => {
       };
 
       const newUser = getState().signup.signupFormData;
-      const isSubscribed = getState().signup.isSubscribed;
 
       const { isValid, errors } = allFieldsValidation(newUser, rules, {
         'required.email': 'Email is required.',
@@ -64,10 +63,7 @@ export const signUp = () => {
       dispatch({ type: SET_SIGNUP_SUBMITTING, payload: true });
       dispatch({ type: SET_SIGNUP_LOADING, payload: true });
 
-      const user = {
-        isSubscribed,
-        ...newUser
-      };
+      const user = {...newUser};
 
       const response = await axios.post('/api/auth/register', user);
 
