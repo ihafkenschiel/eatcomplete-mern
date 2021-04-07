@@ -1,12 +1,10 @@
-# MERN Ecommerce
+# eatComplete (MERN version)
+By Ian Hafkenschiel
+Last Updated: 2021 April 7
 
 ## Description
 
-An ecommerce store built with MERN stack, and utilizes third party API's. This ecommerce store enable three main different flows or implementations:
-
-1. Buyers browse the store categories, products and brands
-2. Sellers or Merchants manage their own brand component
-3. Admins manage and control the entire store components 
+An app utilizing USDA nutritional data to help users identify missing nutrients in their diets and to identify the best whole foods to nourish those deficiencies. The app is built with MERN stack modeled after a template provided by Mohamed Samara, and utilizes third party API's.
 
 
 * features:
@@ -18,18 +16,9 @@ An ecommerce store built with MERN stack, and utilizes third party API's. This e
   * Redux Thunk middleware to handle asynchronous redux actions
 
 
-
-## What's Next 
-
-  * Add a payment method solution to enable checkout and collecting payments
-  * Associate each Merchant to a payment account 
-  * Enable Admin to edit products & category products
-  * Enable Merchants to add products to a specific category
-
-
 ## Demo
 
-This application is deployed on Heroku. Please check it out :smile: [here](https://mern-store-80202.herokuapp.com/).
+This application is deployed on Heroku. Please check it out :smile: [here]().
 
 
 ## Install
@@ -37,8 +26,7 @@ This application is deployed on Heroku. Please check it out :smile: [here](https
 Some basic Git commands are:
 
 ```
-$ git clone https://github.com/mohamedsamara/mern-ecommerce.git
-$ cd project
+$ git clone https://github.com/ihafkenschiel/eatcomplete-mern .
 $ npm install
 ```
 
