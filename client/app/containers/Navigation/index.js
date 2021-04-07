@@ -65,28 +65,6 @@ class Navigation extends React.PureComponent {
 
     return (
       <header className='header fixed-mobile-header'>
-        <div className='header-info'>
-          <Container>
-            <Row>
-              <Col md='4' className='text-center d-none d-md-block'>
-                <i className='fa fa-truck' />
-                <span>Free Shipping</span>
-              </Col>
-              <Col md='4' className='text-center d-none d-md-block'>
-                <i className='fa fa-credit-card' />
-                <span>Payment Methods</span>
-              </Col>
-              <Col md='4' className='text-center d-none d-md-block'>
-                <i className='fa fa-phone' />
-                <span>Call us 951-999-9999</span>
-              </Col>
-              <Col xs='12' className='text-center d-block d-md-none'>
-                <i className='fa fa-phone' />
-                <span> Need advice? Call us 951-999-9999</span>
-              </Col>
-            </Row>
-          </Container>
-        </div>
         <Container>
           <Row className='top-header'>
             <Col
@@ -96,14 +74,14 @@ class Navigation extends React.PureComponent {
               lg={{ size: 3, order: 1 }}
             >
               <div className='brand'>
-                <Button
+                {/* <Button
                   className='d-none d-md-block'
                   ariaLabel='open the menu'
                   icon={<BarsIcon />}
                   onClick={() => this.toggleMenu()}
-                />
+                /> */}
                 <Link to='/'>
-                  <h1 className='logo'>MERN Store</h1>
+                  <h1 className='logo'>eatComplete</h1>
                 </Link>
               </div>
             </Col>
@@ -136,38 +114,20 @@ class Navigation extends React.PureComponent {
                   onClick={toggleCart}
                 />
                 <Nav navbar>
-                  <Dropdown
-                    nav
-                    inNavbar
-                    toggle={() => this.toggleBrand()}
-                    isOpen={isBrandOpen}
-                  >
-                    <DropdownToggle nav>
-                      Brands
-                      <span className='fa fa-chevron-down dropdown-caret'></span>
-                    </DropdownToggle>
-                    <DropdownMenu right className='nav-brand-dropdown'>
-                      <div className='mini-brand'>
-                        <MiniBrand
-                          brands={brands}
-                          toggleBrand={() => this.toggleBrand()}
-                        />
-                      </div>
-                    </DropdownMenu>
-                  </Dropdown>
                   <NavItem>
                     <NavLink
                       tag={ActiveLink}
                       to='/shop'
                       activeClassName='active'
                     >
-                      Shop
+                      Foods
                     </NavLink>
                   </NavItem>
                   {authenticated ? (
                     <UncontrolledDropdown nav inNavbar>
                       <DropdownToggle nav>
                         {user.firstName ? user.firstName : 'Welcome'}
+                        <span className='fa fa-menu'></span>
                         <span className='fa fa-chevron-down dropdown-caret'></span>
                       </DropdownToggle>
                       <DropdownMenu right>

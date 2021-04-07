@@ -57,7 +57,7 @@ exports.contactEmail = () => {
 
 exports.merchantApplicationEmail = () => {
   const message = {
-    subject: 'Sell on MERN Store',
+    subject: 'eatComplete Nutrional Meal Tracker Application Received',
     text: `We received your request! Our team will contact you soon. \n\n`
   };
 

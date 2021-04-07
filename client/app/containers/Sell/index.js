@@ -25,7 +25,7 @@ class Sell extends React.PureComponent {
 
     return (
       <div className='sell'>
-        <h2>Become A MERN Store Seller!</h2>
+        <h2>Get started!</h2>
         <hr />
         <Row>
           <Col xs='12' md='6' className='order-2 order-md-1'>
@@ -107,9 +107,9 @@ class Sell extends React.PureComponent {
             <Row>
               <Col xs='12' className='order-2 order-md-1 text-md-center mb-3'>
                 <div className='agreement-banner-text'>
-                  <h3>Would you like to sell your products on MERN Store!</h3>
-                  <h4>Grow your business with MERN Store</h4>
-                  <b>Apply Today</b>
+                  <h3>Would you like to have a nutritionally complete diet?</h3>
+                  <h4>Identify and fill in the gaps in your diet with eatComplete Nutritional Meal Planner.</h4>
+                  <b>Get Started!</b>
                 </div>
               </Col>
 
