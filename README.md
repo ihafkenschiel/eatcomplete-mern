@@ -60,6 +60,12 @@ The Client Id and Client Secret needed to authenticate with Google can be set up
 
 The Google OAuth 2.0 authentication strategy authenticates users using a Google account and OAuth 2.0 tokens. The strategy requires a verify callback, which accepts these credentials and calls done providing a user, as well as options specifying a client ID, client secret, and callback URL.
 
+Steps:
+1. Go to [Google Developers Console](https://console.developers.google.com/) and click on Credentials on the left bar.
+2. Click Create Credentials -> Oauth Client ID
+3. Select web application and type `eatComplete` for Name.
+4. Copy and paste client id and secret in the .env file.
+
 More info: https://support.google.com/googleapi/answer/6158849?hl=en
 
 ## Heroku Deployment
@@ -80,6 +86,8 @@ $ npm run production
 ```
 $ npm start
 ```
+
+Go to `http://localhost:5000/` in your browser to access the site.
 
 ## Run the application for production
 
