@@ -9,7 +9,7 @@ const mailgun = require('mailgun-js')({
 exports.sendEmail = (recipient, message) => {
   return new Promise((resolve, reject) => {
     const data = {
-      from: `MERN Store! <${sender}>`,
+      from: `eatComplete <${sender}>`,
       to: recipient,
       subject: message.subject,
       text: message.text

@@ -39,10 +39,6 @@ const prepareTemplate = (type, host, data) => {
       message = template.merchantSignup(host, data);
       break;
 
-    case 'newsletter-subscription':
-      message = template.newsletterSubscriptionEmail();
-      break;
-
     case 'contact':
       message = template.contactEmail();
       break;
