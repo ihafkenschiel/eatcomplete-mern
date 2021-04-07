@@ -36,10 +36,6 @@ const UserSchema = new Schema({
     type: String,
     unique: true
   },
-  facebookId: {
-    type: String,
-    unique: true
-  },
   avatar: {
     type: String
   },

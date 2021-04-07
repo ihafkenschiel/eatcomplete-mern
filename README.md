@@ -51,9 +51,21 @@ $ npm install
   * PORT & BASE_SERVER_URL & BASE_API_URL & BASE_CLIENT_URL
   * MAILGUN_KEY & MAILGUN_DOMAIN & MAILGUN_EMAIL_SENDER => Mailgun configuration
   * GOOGLE_CLIENT_ID & GOOGLE_CLIENT_SECRET & GOOGLE_CALLBACK_URL => Google Auth configuration
-  * FACEBOOK_CLIENT_ID & FACEBOOK_CLIENT_SECRET & FACEBOOK_CALLBACK_URL => Facebook Auth configuration
   * AWS_ACCESS_KEY_ID & AWS_SECRET_ACCESS_KEY & AWS_REGION & AWS_BUCKET_NAME => AWS configuration
 ```
+
+### JWT 
+You can generate a Java Web Token (JWT) Secret here: https://jwt.io/#debugger-io
+
+### Passport Authentication
+http://www.passportjs.org/docs/configure/
+
+#### Google
+The Client Id and Client Secret needed to authenticate with Google can be set up from the [Google Developers Console](https://console.developers.google.com/). You may also need to enable Google+ API in the developer console, otherwise user profile data may not be fetched. 
+
+The Google OAuth 2.0 authentication strategy authenticates users using a Google account and OAuth 2.0 tokens. The strategy requires a verify callback, which accepts these credentials and calls done providing a user, as well as options specifying a client ID, client secret, and callback URL.
+
+More info: https://support.google.com/googleapi/answer/6158849?hl=en
 
 ## Heroku Deployment
 
