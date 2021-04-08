@@ -4,7 +4,7 @@
     { "to": "/security", "name": "Account Security" },
     { "to": "/address", "name": "Address" },
     { "to": "/food", "name": "Manage Foods" },
-    { "to": "/category", "name": "Manage Categories" },
+    { "to": "/nutrient", "name": "Manage Categories" },
     { "to": "/brand", "name": "Manage Brands" },
     { "to": "/users", "name": "Manage Users" },
     { "to": "/merchants", "name": "Manage Merchants" },

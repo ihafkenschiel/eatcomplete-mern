@@ -10,49 +10,49 @@ import { connect } from 'react-redux';
 
 import actions from '../../actions';
 
-import EditCategory from '../../components/Manager/EditCategory';
+import EditNutrient from '../../components/Manager/EditNutrient';
 import SubPage from '../../components/Manager/SubPage';
 import NotFound from '../../components/Common/NotFound';
 
 class Edit extends React.PureComponent {
   componentDidMount() {
-    const categoryId = this.props.match.params.id;
-    this.props.fetchCategory(categoryId);
+    const nutrientId = this.props.match.params.id;
+    this.props.fetchNutrient(nutrientId);
   }
 
   componentDidUpdate(prevProps) {
     if (this.props.match.params.id !== prevProps.match.params.id) {
-      const categoryId = this.props.match.params.id;
-      this.props.fetchCategory(categoryId);
+      const nutrientId = this.props.match.params.id;
+      this.props.fetchNutrient(nutrientId);
     }
   }
 
   render() {
     const {
       history,
-      category,
+      nutrient,
       formErrors,
-      categoryEditChange,
-      updateCategory,
-      deleteCategory
+      nutrientEditChange,
+      updateNutrient,
+      deleteNutrient
     } = this.props;
 
     return (
       <SubPage
-        title='Edit Category'
+        title='Edit Nutrient'
         actionTitle='Cancel'
         handleAction={() => history.goBack()}
       >
-        {category?._id ? (
-          <EditCategory
-            category={category}
+        {nutrient?._id ? (
+          <EditNutrient
+            nutrient={nutrient}
             formErrors={formErrors}
-            categoryChange={categoryEditChange}
-            updateCategory={updateCategory}
-            deleteCategory={deleteCategory}
+            nutrientChange={nutrientEditChange}
+            updateNutrient={updateNutrient}
+            deleteNutrient={deleteNutrient}
           />
         ) : (
-          <NotFound message='no category found.' />
+          <NotFound message='no nutrient found.' />
         )}
       </SubPage>
     );
@@ -61,8 +61,8 @@ class Edit extends React.PureComponent {
 
 const mapStateToProps = state => {
   return {
-    category: state.category.category,
-    formErrors: state.category.editFormErrors
+    nutrient: state.nutrient.nutrient,
+    formErrors: state.nutrient.editFormErrors
   };
 };
 

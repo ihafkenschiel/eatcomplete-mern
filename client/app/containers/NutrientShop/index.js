@@ -1,6 +1,6 @@
 /**
  *
- * CategoryShop
+ * NutrientShop
  *
  */
 
@@ -13,16 +13,16 @@ import FoodList from '../../components/Store/FoodList';
 import NotFound from '../../components/Common/NotFound';
 import LoadingIndicator from '../../components/Common/LoadingIndicator';
 
-class CategoryShop extends React.PureComponent {
+class NutrientShop extends React.PureComponent {
   componentDidMount() {
     const slug = this.props.match.params.slug;
-    this.props.fetchCategoryFoods(slug);
+    this.props.fetchNutrientFoods(slug);
   }
 
   componentDidUpdate(prevProps) {
     if (this.props.match.params.slug !== prevProps.match.params.slug) {
       const slug = this.props.match.params.slug;
-      this.props.fetchCategoryFoods(slug);
+      this.props.fetchNutrientFoods(slug);
     }
   }
 
@@ -30,7 +30,7 @@ class CategoryShop extends React.PureComponent {
     const { foods, isLoading } = this.props;
 
     return (
-      <div className='category-shop'>
+      <div className='nutrient-shop'>
         {isLoading ? (
           <LoadingIndicator />
         ) : foods.length > 0 ? (
@@ -50,4 +50,4 @@ const mapStateToProps = state => {
   };
 };
 
-export default connect(mapStateToProps, actions)(CategoryShop);
+export default connect(mapStateToProps, actions)(NutrientShop);

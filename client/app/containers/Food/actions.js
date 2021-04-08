@@ -164,12 +164,12 @@ export const fetchBrandFoods = slug => {
   };
 };
 
-export const fetchCategoryFoods = slug => {
+export const fetchNutrientFoods = slug => {
   return async (dispatch, getState) => {
     dispatch({ type: SET_FOODS_LOADING, payload: true });
 
     try {
-      const response = await axios.get(`/api/food/list/category/${slug}`);
+      const response = await axios.get(`/api/food/list/nutrient/${slug}`);
 
       dispatch({
         type: FETCH_FOODS,

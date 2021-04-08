@@ -10,7 +10,7 @@ import { connect } from 'react-redux';
 
 import actions from '../../actions';
 
-import AddCategory from '../../components/Manager/AddCategory';
+import AddNutrient from '../../components/Manager/AddNutrient';
 import SubPage from '../../components/Manager/SubPage';
 
 class Add extends React.PureComponent {
@@ -22,28 +22,28 @@ class Add extends React.PureComponent {
     const {
       history,
       foods,
-      categoryFormData,
+      nutrientFormData,
       formErrors,
       selectedFoods,
       handleFoodselect,
-      categoryChange,
-      addCategory
+      nutrientChange,
+      addNutrient
     } = this.props;
 
     return (
       <SubPage
-        title='Add Category'
+        title='Add Nutrient'
         actionTitle='Cancel'
         handleAction={() => history.goBack()}
       >
-        <AddCategory
+        <AddNutrient
           foods={foods}
-          categoryFormData={categoryFormData}
+          nutrientFormData={nutrientFormData}
           formErrors={formErrors}
           selectedFoods={selectedFoods}
           handleFoodselect={handleFoodselect}
-          categoryChange={categoryChange}
-          addCategory={addCategory}
+          nutrientChange={nutrientChange}
+          addNutrient={addNutrient}
         />
       </SubPage>
     );
@@ -53,8 +53,8 @@ class Add extends React.PureComponent {
 const mapStateToProps = state => {
   return {
     foods: state.food.foodsSelect,
-    categoryFormData: state.category.categoryFormData,
-    formErrors: state.category.formErrors,
+    nutrientFormData: state.nutrient.nutrientFormData,
+    formErrors: state.nutrient.formErrors,
     selectedFoods: state.food.selectedFoods
   };
 };

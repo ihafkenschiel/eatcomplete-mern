@@ -1,6 +1,6 @@
 /*
  *
- * Category actions
+ * Nutrient actions
  *
  */
 
@@ -11,15 +11,15 @@ import axios from 'axios';
 import {
   FETCH_CATEGORIES,
   FETCH_STORE_CATEGORIES,
-  FETCH_CATEGORY,
-  CATEGORY_CHANGE,
-  CATEGORY_EDIT_CHANGE,
-  SET_CATEGORY_FORM_ERRORS,
-  SET_CATEGORY_FORM_EDIT_ERRORS,
-  RESET_CATEGORY,
-  TOGGLE_ADD_CATEGORY,
-  ADD_CATEGORY,
-  REMOVE_CATEGORY
+  FETCH_NUTRIENT,
+  NUTRIENT_CHANGE,
+  NUTRIENT_EDIT_CHANGE,
+  SET_NUTRIENT_FORM_ERRORS,
+  SET_NUTRIENT_FORM_EDIT_ERRORS,
+  RESET_NUTRIENT,
+  TOGGLE_ADD_NUTRIENT,
+  ADD_NUTRIENT,
+  REMOVE_NUTRIENT
 } from './constants';
 
 import { RESET_FOOD } from '../Food/constants';
@@ -28,35 +28,35 @@ import handleError from '../../utils/error';
 import { unformatSelectOptions } from '../../helpers/select';
 import { allFieldsValidation } from '../../utils/validation';
 
-export const categoryChange = (name, value) => {
+export const nutrientChange = (name, value) => {
   let formData = {};
   formData[name] = value;
 
   return {
-    type: CATEGORY_CHANGE,
+    type: NUTRIENT_CHANGE,
     payload: formData
   };
 };
 
-export const categoryEditChange = (name, value) => {
+export const nutrientEditChange = (name, value) => {
   let formData = {};
   formData[name] = value;
 
   return {
-    type: CATEGORY_EDIT_CHANGE,
+    type: NUTRIENT_EDIT_CHANGE,
     payload: formData
   };
 };
 
-export const toggleAddCategory = () => {
+export const toggleAddNutrient = () => {
   return {
-    type: TOGGLE_ADD_CATEGORY
+    type: TOGGLE_ADD_NUTRIENT
   };
 };
 
-export const categorySelect = value => {
+export const nutrientSelect = value => {
   return {
-    type: CATEGORY_SELECT,
+    type: NUTRIENT_SELECT,
     payload: value
   };
 };
@@ -65,7 +65,7 @@ export const categorySelect = value => {
 export const fetchStoreCategories = () => {
   return async (dispatch, getState) => {
     try {
-      const response = await axios.get(`/api/category/list`);
+      const response = await axios.get(`/api/nutrient/list`);
 
       dispatch({
         type: FETCH_STORE_CATEGORIES,
@@ -81,7 +81,7 @@ export const fetchStoreCategories = () => {
 export const fetchCategories = () => {
   return async (dispatch, getState) => {
     try {
-      const response = await axios.get(`/api/category`);
+      const response = await axios.get(`/api/nutrient`);
 
       dispatch({
         type: FETCH_CATEGORIES,
@@ -93,15 +93,15 @@ export const fetchCategories = () => {
   };
 };
 
-// fetch category api
-export const fetchCategory = id => {
+// fetch nutrient api
+export const fetchNutrient = id => {
   return async (dispatch, getState) => {
     try {
-      const response = await axios.get(`/api/category/${id}`);
+      const response = await axios.get(`/api/nutrient/${id}`);
 
       dispatch({
-        type: FETCH_CATEGORY,
-        payload: response.data.category
+        type: FETCH_NUTRIENT,
+        payload: response.data.nutrient
       });
     } catch (error) {
       handleError(error, dispatch);
@@ -109,8 +109,8 @@ export const fetchCategory = id => {
   };
 };
 
-// add category api
-export const addCategory = () => {
+// add nutrient api
+export const addNutrient = () => {
   return async (dispatch, getState) => {
     try {
       const rules = {
@@ -119,17 +119,17 @@ export const addCategory = () => {
         foods: 'required'
       };
 
-      const category = getState().category.categoryFormData;
+      const nutrient = getState().nutrient.nutrientFormData;
       const foods = getState().food.selectedFoods;
 
       let newFoods = unformatSelectOptions(foods);
 
-      let newCategory = {
+      let newNutrient = {
         foods: newFoods,
-        ...category
+        ...nutrient
       };
 
-      const { isValid, errors } = allFieldsValidation(newCategory, rules, {
+      const { isValid, errors } = allFieldsValidation(newNutrient, rules, {
         'required.name': 'Name is required.',
         'min.name': 'Name must be at least 1 character.',
         'required.description': 'Description is required.',
@@ -140,10 +140,10 @@ export const addCategory = () => {
       });
 
       if (!isValid) {
-        return dispatch({ type: SET_CATEGORY_FORM_ERRORS, payload: errors });
+        return dispatch({ type: SET_NUTRIENT_FORM_ERRORS, payload: errors });
       }
 
-      const response = await axios.post(`/api/category/add`, newCategory);
+      const response = await axios.post(`/api/nutrient/add`, newNutrient);
 
       const successfulOptions = {
         title: `${response.data.message}`,
@@ -154,12 +154,12 @@ export const addCategory = () => {
       if (response.data.success === true) {
         dispatch(success(successfulOptions));
         dispatch({
-          type: ADD_CATEGORY,
-          payload: response.data.category
+          type: ADD_NUTRIENT,
+          payload: response.data.nutrient
         });
-        dispatch({ type: RESET_CATEGORY });
+        dispatch({ type: RESET_NUTRIENT });
         dispatch({ type: RESET_FOOD });
-        dispatch(toggleAddCategory());
+        dispatch(toggleAddNutrient());
       }
     } catch (error) {
       handleError(error, dispatch);
@@ -167,8 +167,8 @@ export const addCategory = () => {
   };
 };
 
-// update category api
-export const updateCategory = () => {
+// update nutrient api
+export const updateNutrient = () => {
   return async (dispatch, getState) => {
     try {
       const rules = {
@@ -176,14 +176,14 @@ export const updateCategory = () => {
         description: 'required|min:1|max:200'
       };
 
-      const category = getState().category.category;
+      const nutrient = getState().nutrient.nutrient;
 
-      const newCategory = {
-        name: category.name,
-        description: category.description
+      const newNutrient = {
+        name: nutrient.name,
+        description: nutrient.description
       };
 
-      const { isValid, errors } = allFieldsValidation(newCategory, rules, {
+      const { isValid, errors } = allFieldsValidation(newNutrient, rules, {
         'required.name': 'Name is required.',
         'min.name': 'Name must be at least 1 character.',
         'required.description': 'Description is required.',
@@ -193,13 +193,13 @@ export const updateCategory = () => {
 
       if (!isValid) {
         return dispatch({
-          type: SET_CATEGORY_FORM_EDIT_ERRORS,
+          type: SET_NUTRIENT_FORM_EDIT_ERRORS,
           payload: errors
         });
       }
 
-      const response = await axios.put(`/api/category/${category._id}`, {
-        category: newCategory
+      const response = await axios.put(`/api/nutrient/${nutrient._id}`, {
+        nutrient: newNutrient
       });
 
       const successfulOptions = {
@@ -219,12 +219,12 @@ export const updateCategory = () => {
   };
 };
 
-// activate category api
-export const activateCategory = (id, value) => {
+// activate nutrient api
+export const activateNutrient = (id, value) => {
   return async (dispatch, getState) => {
     try {
-      const response = await axios.put(`/api/category/${id}/active`, {
-        category: {
+      const response = await axios.put(`/api/nutrient/${id}/active`, {
+        nutrient: {
           isActive: value
         }
       });
@@ -244,11 +244,11 @@ export const activateCategory = (id, value) => {
   };
 };
 
-// delete category api
-export const deleteCategory = id => {
+// delete nutrient api
+export const deleteNutrient = id => {
   return async (dispatch, getState) => {
     try {
-      const response = await axios.delete(`/api/category/delete/${id}`);
+      const response = await axios.delete(`/api/nutrient/delete/${id}`);
 
       const successfulOptions = {
         title: `${response.data.message}`,
@@ -259,7 +259,7 @@ export const deleteCategory = id => {
       if (response.data.success == true) {
         dispatch(success(successfulOptions));
         dispatch({
-          type: REMOVE_CATEGORY,
+          type: REMOVE_NUTRIENT,
           payload: id
         });
         dispatch(goBack());

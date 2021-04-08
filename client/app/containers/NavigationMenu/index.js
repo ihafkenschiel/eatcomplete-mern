@@ -19,7 +19,7 @@ class NavigationMenu extends React.PureComponent {
   render() {
     const { isMenuOpen, categories, toggleMenu } = this.props;
 
-    const handleCategoryClick = () => {
+    const handleNutrientClick = () => {
       this.props.toggleMenu();
     };
 
@@ -36,13 +36,13 @@ class NavigationMenu extends React.PureComponent {
         </div>
         <div className='menu-body'>
           <Container>
-            {/* <h3 className='menu-title'>Shop By Category</h3> */}
+            {/* <h3 className='menu-title'>Shop By Nutrient</h3> */}
             <nav role='navigation'>
               <ul className='menu-list'>
                 {/* {categories.map((link, index) => ( */}
                   <li className='menu-item'>
                     <NavLink
-                      // onClick={handleCategoryClick}
+                      // onClick={handleNutrientClick}
                       to='/enterFoods'
                       activeClassName='active-link'
                       exact
@@ -52,7 +52,7 @@ class NavigationMenu extends React.PureComponent {
                   </li>
                   <li className='menu-item'>
                     <NavLink
-                      // onClick={handleCategoryClick}
+                      // onClick={handleNutrientClick}
                       to='/enterFoods'
                       activeClassName='active-link'
                       exact
@@ -73,7 +73,7 @@ class NavigationMenu extends React.PureComponent {
 const mapStateToProps = state => {
   return {
     isMenuOpen: state.navigation.isMenuOpen,
-    categories: state.category.storeCategories
+    categories: state.nutrient.storeCategories
   };
 };
 

@@ -10,8 +10,8 @@ const options = {
 
 Mongoose.plugin(slug, options);
 
-// Category Schema
-const CategorySchema = new Schema({
+// Nutrient Schema
+const NutrientSchema = new Schema({
   _id: {
     type: Schema.ObjectId,
     auto: true
@@ -50,4 +50,4 @@ const CategorySchema = new Schema({
   }
 });
 
-module.exports = Mongoose.model('Category', CategorySchema);
+module.exports = Mongoose.model('Nutrient', NutrientSchema);

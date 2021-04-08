@@ -1,6 +1,6 @@
 /**
  *
- * EditCategory
+ * EditNutrient
  *
  */
 
@@ -11,22 +11,22 @@ import { Row, Col } from 'reactstrap';
 import Input from '../../Common/Input';
 import Button from '../../Common/Button';
 
-const EditCategory = props => {
+const EditNutrient = props => {
   const {
-    category,
-    categoryChange,
+    nutrient,
+    nutrientChange,
     formErrors,
-    updateCategory,
-    deleteCategory
+    updateNutrient,
+    deleteNutrient
   } = props;
 
   const handleSubmit = event => {
     event.preventDefault();
-    updateCategory();
+    updateNutrient();
   };
 
   return (
-    <div className='edit-category'>
+    <div className='edit-nutrient'>
       <form onSubmit={handleSubmit} noValidate>
         <Row>
           <Col xs='12'>
@@ -35,10 +35,10 @@ const EditCategory = props => {
               error={formErrors['name']}
               label={'Name'}
               name={'name'}
-              placeholder={'Category Name'}
-              value={category.name}
+              placeholder={'Nutrient Name'}
+              value={nutrient.name}
               onInputChange={(name, value) => {
-                categoryChange(name, value);
+                nutrientChange(name, value);
               }}
             />
           </Col>
@@ -48,10 +48,10 @@ const EditCategory = props => {
               error={formErrors['description']}
               label={'Description'}
               name={'description'}
-              placeholder={'Category Description'}
-              value={category.description}
+              placeholder={'Nutrient Description'}
+              value={nutrient.description}
               onInputChange={(name, value) => {
-                categoryChange(name, value);
+                nutrientChange(name, value);
               }}
             />
           </Col>
@@ -66,7 +66,7 @@ const EditCategory = props => {
           <Button
             variant='danger'
             text='Delete'
-            onClick={() => deleteCategory(category._id)}
+            onClick={() => deleteNutrient(nutrient._id)}
           />
         </div>
       </form>
@@ -74,4 +74,4 @@ const EditCategory = props => {
   );
 };
 
-export default EditCategory;
+export default EditNutrient;

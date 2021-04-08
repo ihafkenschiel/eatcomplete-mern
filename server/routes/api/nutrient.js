@@ -3,7 +3,7 @@ const router = express.Router();
 const passport = require('passport');
 
 // Bring in Models & Helpers
-const Category = require('../../models/category');
+const Nutrient = require('../../models/nutrient');
 const auth = require('../../middleware/auth');
 const role = require('../../middleware/role');
 const store = require('../../helpers/store');
@@ -20,14 +20,14 @@ router.post('/add', auth, role.checkRole(role.ROLES.Admin), (req, res) => {
       .json({ error: 'You must enter description & name.' });
   }
 
-  const category = new Category({
+  const nutrient = new Nutrient({
     name,
     description,
     foods,
     isActive
   });
 
-  category.save((err, data) => {
+  nutrient.save((err, data) => {
     if (err) {
       return res.status(400).json({
         error: 'Your request could not be processed. Please try again.'
@@ -36,15 +36,15 @@ router.post('/add', auth, role.checkRole(role.ROLES.Admin), (req, res) => {
 
     res.status(200).json({
       success: true,
-      message: `Category has been added successfully!`,
-      category: data
+      message: `Nutrient has been added successfully!`,
+      nutrient: data
     });
   });
 });
 
 // fetch store categories api
 router.get('/list', (req, res) => {
-  Category.find({ isActive: true }, (err, data) => {
+  Nutrient.find({ isActive: true }, (err, data) => {
     if (err) {
       return res.status(400).json({
         error: 'Your request could not be processed. Please try again.'
@@ -58,7 +58,7 @@ router.get('/list', (req, res) => {
 
 // fetch categories api
 router.get('/', (req, res) => {
-  Category.find({}, (err, data) => {
+  Nutrient.find({}, (err, data) => {
     if (err) {
       return res.status(400).json({
         error: 'Your request could not be processed. Please try again.'
@@ -70,23 +70,23 @@ router.get('/', (req, res) => {
   });
 });
 
-// fetch category api
+// fetch nutrient api
 router.get('/:id', async (req, res) => {
   try {
-    const categoryId = req.params.id;
+    const nutrientId = req.params.id;
 
-    const categoryDoc = await Category.findOne({ _id: categoryId }).populate(
+    const nutrientDoc = await Nutrient.findOne({ _id: nutrientId }).populate(
       'brand'
     );
 
-    if (!categoryDoc) {
+    if (!nutrientDoc) {
       return res.status(404).json({
-        message: 'No Category found.'
+        message: 'No Nutrient found.'
       });
     }
 
     res.status(200).json({
-      category: categoryDoc
+      nutrient: nutrientDoc
     });
   } catch (error) {
     res.status(400).json({
@@ -97,17 +97,17 @@ router.get('/:id', async (req, res) => {
 
 router.put('/:id', auth, role.checkRole(role.ROLES.Admin), async (req, res) => {
   try {
-    const categoryId = req.params.id;
-    const update = req.body.category;
-    const query = { _id: categoryId };
+    const nutrientId = req.params.id;
+    const update = req.body.nutrient;
+    const query = { _id: nutrientId };
 
-    await Category.findOneAndUpdate(query, update, {
+    await Nutrient.findOneAndUpdate(query, update, {
       new: true
     });
 
     res.status(200).json({
       success: true,
-      message: 'Category has been updated successfully!'
+      message: 'Nutrient has been updated successfully!'
     });
   } catch (error) {
     res.status(400).json({
@@ -122,27 +122,27 @@ router.put(
   role.checkRole(role.ROLES.Admin),
   async (req, res) => {
     try {
-      const categoryId = req.params.id;
-      const update = req.body.category;
-      const query = { _id: categoryId };
+      const nutrientId = req.params.id;
+      const update = req.body.nutrient;
+      const query = { _id: nutrientId };
 
-      // disable category(categoryId) foods
+      // disable nutrient(nutrientId) foods
       if (!update.isActive) {
-        const categoryDoc = await Category.findOne(
-          { _id: categoryId, isActive: true },
+        const nutrientDoc = await Nutrient.findOne(
+          { _id: nutrientId, isActive: true },
           'foods -_id'
         ).populate('foods');
 
-        store.disableFoods(categoryDoc.foods);
+        store.disableFoods(nutrientDoc.foods);
       }
 
-      await Category.findOneAndUpdate(query, update, {
+      await Nutrient.findOneAndUpdate(query, update, {
         new: true
       });
 
       res.status(200).json({
         success: true,
-        message: 'Category has been updated successfully!'
+        message: 'Nutrient has been updated successfully!'
       });
     } catch (error) {
       res.status(400).json({
@@ -158,11 +158,11 @@ router.delete(
   role.checkRole(role.ROLES.Admin),
   async (req, res) => {
     try {
-      const food = await Category.deleteOne({ _id: req.params.id });
+      const food = await Nutrient.deleteOne({ _id: req.params.id });
 
       res.status(200).json({
         success: true,
-        message: `Category has been deleted successfully!`,
+        message: `Nutrient has been deleted successfully!`,
         food
       });
     } catch (error) {

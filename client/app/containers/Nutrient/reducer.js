@@ -1,31 +1,31 @@
 /*
  *
- * Category reducer
+ * Nutrient reducer
  *
  */
 
 import {
   FETCH_CATEGORIES,
   FETCH_STORE_CATEGORIES,
-  FETCH_CATEGORY,
-  CATEGORY_CHANGE,
-  CATEGORY_EDIT_CHANGE,
-  SET_CATEGORY_FORM_ERRORS,
-  SET_CATEGORY_FORM_EDIT_ERRORS,
-  RESET_CATEGORY,
-  TOGGLE_ADD_CATEGORY,
-  ADD_CATEGORY,
-  REMOVE_CATEGORY
+  FETCH_NUTRIENT,
+  NUTRIENT_CHANGE,
+  NUTRIENT_EDIT_CHANGE,
+  SET_NUTRIENT_FORM_ERRORS,
+  SET_NUTRIENT_FORM_EDIT_ERRORS,
+  RESET_NUTRIENT,
+  TOGGLE_ADD_NUTRIENT,
+  ADD_NUTRIENT,
+  REMOVE_NUTRIENT
 } from './constants';
 
 const initialState = {
   categories: [],
   storeCategories: [],
-  category: {
+  nutrient: {
     _id: ''
   },
-  isCategoryAddOpen: false,
-  categoryFormData: {
+  isNutrientAddOpen: false,
+  nutrientFormData: {
     name: '',
     description: '',
     isActive: true
@@ -34,7 +34,7 @@ const initialState = {
   editFormErrors: {}
 };
 
-const categoryReducer = (state = initialState, action) => {
+const nutrientReducer = (state = initialState, action) => {
   switch (action.type) {
     case FETCH_CATEGORIES:
       return {
@@ -46,17 +46,17 @@ const categoryReducer = (state = initialState, action) => {
         ...state,
         storeCategories: action.payload
       };
-    case FETCH_CATEGORY:
+    case FETCH_NUTRIENT:
       return {
         ...state,
-        category: action.payload
+        nutrient: action.payload
       };
-    case ADD_CATEGORY:
+    case ADD_NUTRIENT:
       return {
         ...state,
         categories: [...state.categories, action.payload]
       };
-    case REMOVE_CATEGORY:
+    case REMOVE_NUTRIENT:
       const index = state.categories.findIndex(b => b._id === action.payload);
       return {
         ...state,
@@ -65,44 +65,44 @@ const categoryReducer = (state = initialState, action) => {
           ...state.categories.slice(index + 1)
         ]
       };
-    case CATEGORY_CHANGE:
+    case NUTRIENT_CHANGE:
       return {
         ...state,
-        categoryFormData: { ...state.categoryFormData, ...action.payload }
+        nutrientFormData: { ...state.nutrientFormData, ...action.payload }
       };
-    case CATEGORY_EDIT_CHANGE:
+    case NUTRIENT_EDIT_CHANGE:
       return {
         ...state,
-        category: {
-          ...state.category,
+        nutrient: {
+          ...state.nutrient,
           ...action.payload
         }
       };
-    case SET_CATEGORY_FORM_ERRORS:
+    case SET_NUTRIENT_FORM_ERRORS:
       return {
         ...state,
         formErrors: action.payload
       };
-    case SET_CATEGORY_FORM_EDIT_ERRORS:
+    case SET_NUTRIENT_FORM_EDIT_ERRORS:
       return {
         ...state,
         editFormErrors: action.payload
       };
-    case RESET_CATEGORY:
+    case RESET_NUTRIENT:
       return {
         ...state,
-        categoryFormData: {
+        nutrientFormData: {
           name: '',
           description: '',
           isActive: true
         },
         formErrors: {}
       };
-    case TOGGLE_ADD_CATEGORY:
-      return { ...state, isCategoryAddOpen: !state.isCategoryAddOpen };
+    case TOGGLE_ADD_NUTRIENT:
+      return { ...state, isNutrientAddOpen: !state.isNutrientAddOpen };
     default:
       return state;
   }
 };
 
-export default categoryReducer;
+export default nutrientReducer;

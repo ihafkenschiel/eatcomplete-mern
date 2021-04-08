@@ -16,7 +16,7 @@ import Account from '../../../containers/Account';
 import AccountSecurity from '../../../containers/AccountSecurity';
 import Order from '../../../containers/Order';
 import Users from '../../../containers/Users';
-import Category from '../../../containers/Category';
+import Nutrient from '../../../containers/Nutrient';
 import Food from '../../../containers/Food';
 import Brand from '../../../containers/Brand';
 import Merchant from '../../../containers/Merchant';
@@ -38,7 +38,7 @@ const Admin = props => {
                 component={AccountSecurity}
               />
               <Route path='/dashboard/food' component={Food} />
-              <Route path='/dashboard/category' component={Category} />
+              <Route path='/dashboard/nutrient' component={Nutrient} />
               <Route path='/dashboard/brand' component={Brand} />
               <Route path='/dashboard/users' component={Users} />
               <Route path='/dashboard/merchants' component={Merchant} />

@@ -6,7 +6,7 @@ const AWS = require('aws-sdk');
 // Bring in Models & Helpers
 const Food = require('../../models/food');
 const Brand = require('../../models/brand');
-const Category = require('../../models/category');
+const Nutrient = require('../../models/nutrient');
 const auth = require('../../middleware/auth');
 const role = require('../../middleware/role');
 
@@ -219,24 +219,24 @@ router.get('/item/:slug', async (req, res) => {
   }
 });
 
-// fetch all foods by category api
-router.get('/list/category/:slug', async (req, res) => {
+// fetch all foods by nutrient api
+router.get('/list/nutrient/:slug', async (req, res) => {
   try {
     const slug = req.params.slug;
 
-    const categoryDoc = await Category.findOne(
+    const nutrientDoc = await Nutrient.findOne(
       { slug, isActive: true },
       'foods -_id'
     ).populate('foods');
 
-    if (!categoryDoc) {
+    if (!nutrientDoc) {
       return res.status(404).json({
         message: 'No foods found.'
       });
     }
 
     res.status(200).json({
-      foods: categoryDoc ? categoryDoc.foods : categoryDoc
+      foods: nutrientDoc ? nutrientDoc.foods : nutrientDoc
     });
   } catch (error) {
     res.status(400).json({

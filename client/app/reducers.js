@@ -22,7 +22,7 @@ import accountReducer from './containers/Account/reducer';
 import resetPasswordReducer from './containers/ResetPassword/reducer';
 import usersReducer from './containers/Users/reducer';
 import foodReducer from './containers/Food/reducer';
-import categoryReducer from './containers/Category/reducer';
+import nutrientReducer from './containers/Nutrient/reducer';
 import brandReducer from './containers/Brand/reducer';
 import navigationMenuReducer from './containers/NavigationMenu/reducer';
 import shopReducer from './containers/Shop/reducer';
@@ -47,7 +47,7 @@ const createReducer = history =>
     resetPassword: resetPasswordReducer,
     users: usersReducer,
     food: foodReducer,
-    category: categoryReducer,
+    nutrient: nutrientReducer,
     brand: brandReducer,
     menu: navigationMenuReducer,
     shop: shopReducer,

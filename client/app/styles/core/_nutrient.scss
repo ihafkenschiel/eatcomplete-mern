@@ -1,7 +1,7 @@
-/* start category dashboard styles */
-.category-dashboard {
+/* start nutrient dashboard styles */
+.nutrient-dashboard {
   .c-list {
-    .category-box {
+    .nutrient-box {
       height: 100%;
       border-radius: $border-radius-default;
       box-shadow: $secondary-box-shadow;
@@ -21,10 +21,10 @@
         }
       }
 
-      .category-desc {
+      .nutrient-desc {
         @include text-ellipsis(2);
       }
     }
   }
 }
-/* end category dashboard styles */
+/* end nutrient dashboard styles */

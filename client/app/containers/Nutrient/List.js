@@ -10,7 +10,7 @@ import { connect } from 'react-redux';
 
 import actions from '../../actions';
 
-import CategoryList from '../../components/Manager/CategoryList';
+import NutrientList from '../../components/Manager/NutrientList';
 import SubPage from '../../components/Manager/SubPage';
 
 class List extends React.PureComponent {
@@ -19,18 +19,18 @@ class List extends React.PureComponent {
   }
 
   render() {
-    const { history, categories, activateCategory } = this.props;
+    const { history, categories, activateNutrient } = this.props;
 
     return (
       <>
         <SubPage
           title='Categories'
           actionTitle='Add'
-          handleAction={() => history.push('/dashboard/category/add')}
+          handleAction={() => history.push('/dashboard/nutrient/add')}
         >
-          <CategoryList
+          <NutrientList
             categories={categories}
-            activateCategory={activateCategory}
+            activateNutrient={activateNutrient}
           />
         </SubPage>
       </>
@@ -40,7 +40,7 @@ class List extends React.PureComponent {
 
 const mapStateToProps = state => {
   return {
-    categories: state.category.categories,
+    categories: state.nutrient.categories,
     user: state.account.user
   };
 };

@@ -1,6 +1,6 @@
 /**
  *
- * AddCategory
+ * AddNutrient
  *
  */
 
@@ -13,12 +13,12 @@ import Switch from '../../Common/Switch';
 import Button from '../../Common/Button';
 import SelectOption from '../../Common/SelectOption';
 
-const AddCategory = props => {
+const AddNutrient = props => {
   const {
-    categoryFormData,
+    nutrientFormData,
     formErrors,
-    categoryChange,
-    addCategory,
+    nutrientChange,
+    addNutrient,
     foods,
     selectedFoods,
     handleFoodselect
@@ -26,11 +26,11 @@ const AddCategory = props => {
 
   const handleSubmit = event => {
     event.preventDefault();
-    addCategory();
+    addNutrient();
   };
 
   return (
-    <div className='add-category'>
+    <div className='add-nutrient'>
       <form onSubmit={handleSubmit} noValidate>
         <Row>
           <Col xs='12'>
@@ -39,10 +39,10 @@ const AddCategory = props => {
               error={formErrors['name']}
               label={'Name'}
               name={'name'}
-              placeholder={'Category Name'}
-              value={categoryFormData.name}
+              placeholder={'Nutrient Name'}
+              value={nutrientFormData.name}
               onInputChange={(name, value) => {
-                categoryChange(name, value);
+                nutrientChange(name, value);
               }}
             />
           </Col>
@@ -52,10 +52,10 @@ const AddCategory = props => {
               error={formErrors['description']}
               label={'Description'}
               name={'description'}
-              placeholder={'Category Description'}
-              value={categoryFormData.description}
+              placeholder={'Nutrient Description'}
+              value={nutrientFormData.description}
               onInputChange={(name, value) => {
-                categoryChange(name, value);
+                nutrientChange(name, value);
               }}
             />
           </Col>
@@ -73,21 +73,21 @@ const AddCategory = props => {
           </Col>
           <Col xs='12' md='12' className='my-2'>
             <Switch
-              id={'active-category'}
+              id={'active-nutrient'}
               name={'isActive'}
               label={'Active?'}
-              checked={categoryFormData.isActive}
-              toggleCheckboxChange={value => categoryChange('isActive', value)}
+              checked={nutrientFormData.isActive}
+              toggleCheckboxChange={value => nutrientChange('isActive', value)}
             />
           </Col>
         </Row>
         <hr />
-        <div className='add-category-actions'>
-          <Button type='submit' text='Add Category' />
+        <div className='add-nutrient-actions'>
+          <Button type='submit' text='Add Nutrient' />
         </div>
       </form>
     </div>
   );
 };
 
-export default AddCategory;
+export default AddNutrient;

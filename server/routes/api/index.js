@@ -3,7 +3,7 @@ const router = require('express').Router();
 const authRoutes = require('./auth');
 const userRoutes = require('./user');
 const foodRoutes = require('./food');
-const categoryRoutes = require('./category');
+const nutrientRoutes = require('./nutrient');
 const brandRoutes = require('./brand');
 const contactRoutes = require('./contact');
 const merchantRoutes = require('./merchant');
@@ -19,8 +19,8 @@ router.use('/user', userRoutes);
 // food routes
 router.use('/food', foodRoutes);
 
-// category routes
-router.use('/category', categoryRoutes);
+// nutrient routes
+router.use('/nutrient', nutrientRoutes);
 
 // brand routes
 router.use('/brand', brandRoutes);
