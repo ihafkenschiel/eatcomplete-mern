@@ -36,14 +36,12 @@ class NavigationMenu extends React.PureComponent {
         </div>
         <div className='menu-body'>
           <Container>
-            {/* <h3 className='menu-title'>Shop By Nutrient</h3> */}
+            <h3 className='menu-title'>Start Here!</h3>
             <nav role='navigation'>
               <ul className='menu-list'>
-                {/* {categories.map((link, index) => ( */}
                   <li className='menu-item'>
                     <NavLink
-                      // onClick={handleNutrientClick}
-                      to='/enterFoods'
+                      to='/find-foods'
                       activeClassName='active-link'
                       exact
                     >
@@ -52,15 +50,13 @@ class NavigationMenu extends React.PureComponent {
                   </li>
                   <li className='menu-item'>
                     <NavLink
-                      // onClick={handleNutrientClick}
-                      to='/enterFoods'
+                      to='/create-meal'
                       activeClassName='active-link'
                       exact
                     >
                       2. Create Your Next Meal
                     </NavLink>
                   </li>
-                {/* ))} */}
               </ul>
             </nav>
           </Container>

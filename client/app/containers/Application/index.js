@@ -31,6 +31,8 @@ import Contact from '../Contact';
 import OrderSuccess from '../OrderSuccess';
 import OrderPage from '../OrderPage';
 import AuthSuccess from '../AuthSuccess';
+import FindFoods from '../FindFoods';
+import CreateMeal from '../CreateMeal';
 
 import Footer from '../../components/Common/Footer';
 import Page404 from '../../components/Common/Page404';
@@ -78,6 +80,8 @@ class Application extends React.PureComponent {
                 <Route path='/order/:id' component={OrderPage} />
                 <Route path='/login' component={Login} />
                 <Route path='/register' component={Signup} />
+                <Route path='/find-foods' component={FindFoods} />
+                <Route path='/create-meal' component={CreateMeal} />
                 <Route
                   path='/merchant-signup/:token'
                   component={MerchantSignup}
