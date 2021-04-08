@@ -19,7 +19,7 @@ import * as account from './containers/Account/actions';
 import * as address from './containers/Address/actions';
 import * as resetPassword from './containers/ResetPassword/actions';
 import * as users from './containers/Users/actions';
-import * as product from './containers/Product/actions';
+import * as food from './containers/Food/actions';
 import * as category from './containers/Category/actions';
 import * as brand from './containers/Brand/actions';
 import * as menu from './containers/NavigationMenu/actions';
@@ -44,7 +44,7 @@ export default function mapDispatchToProps(dispatch) {
       ...address,
       ...resetPassword,
       ...users,
-      ...product,
+      ...food,
       ...category,
       ...brand,
       ...menu,

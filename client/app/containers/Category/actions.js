@@ -22,7 +22,7 @@ import {
   REMOVE_CATEGORY
 } from './constants';
 
-import { RESET_PRODUCT } from '../Product/constants';
+import { RESET_FOOD } from '../Food/constants';
 
 import handleError from '../../utils/error';
 import { unformatSelectOptions } from '../../helpers/select';
@@ -116,16 +116,16 @@ export const addCategory = () => {
       const rules = {
         name: 'required|min:1',
         description: 'required|min:1|max:200',
-        products: 'required'
+        foods: 'required'
       };
 
       const category = getState().category.categoryFormData;
-      const products = getState().product.selectedProducts;
+      const foods = getState().food.selectedFoods;
 
-      let newProducts = unformatSelectOptions(products);
+      let newFoods = unformatSelectOptions(foods);
 
       let newCategory = {
-        products: newProducts,
+        foods: newFoods,
         ...category
       };
 
@@ -136,7 +136,7 @@ export const addCategory = () => {
         'min.description': 'Description must be at least 1 character.',
         'max.description':
           'Description may not be greater than 200 characters.',
-        'required.products': 'Products is required.'
+        'required.foods': 'Foods is required.'
       });
 
       if (!isValid) {
@@ -158,7 +158,7 @@ export const addCategory = () => {
           payload: response.data.category
         });
         dispatch({ type: RESET_CATEGORY });
-        dispatch({ type: RESET_PRODUCT });
+        dispatch({ type: RESET_FOOD });
         dispatch(toggleAddCategory());
       }
     } catch (error) {

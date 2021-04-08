@@ -3,9 +3,9 @@ const { Schema } = Mongoose;
 
 // Cart Item Schema
 const CartItemSchema = new Schema({
-  product: {
+  food: {
     type: Schema.Types.ObjectId,
-    ref: 'Product'
+    ref: 'Food'
   },
   quantity: Number,
   totalPrice: {
@@ -26,7 +26,7 @@ module.exports = Mongoose.model('CartItem', CartItemSchema);
 
 // Cart Schema
 const CartSchema = new Schema({
-  products: [CartItemSchema],
+  foods: [CartItemSchema],
   user: {
     type: Schema.Types.ObjectId,
     ref: 'User'

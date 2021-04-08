@@ -37,10 +37,10 @@ const CategorySchema = new Schema({
     type: Boolean,
     default: true
   },
-  products: [
+  foods: [
     {
       type: Schema.Types.ObjectId,
-      ref: 'Product'
+      ref: 'Food'
     }
   ],
   updated: Date,

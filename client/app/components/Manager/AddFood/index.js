@@ -1,6 +1,6 @@
 /**
  *
- * AddProduct
+ * AddFood
  *
  */
 
@@ -13,12 +13,12 @@ import Switch from '../../Common/Switch';
 import Button from '../../Common/Button';
 import SelectOption from '../../Common/SelectOption';
 
-const AddProduct = props => {
+const AddFood = props => {
   const {
-    productFormData,
+    foodFormData,
     formErrors,
-    productChange,
-    addProduct,
+    foodChange,
+    addFood,
     handleBrandSelect,
     selectedBrands,
     brands,
@@ -28,11 +28,11 @@ const AddProduct = props => {
 
   const handleSubmit = event => {
     event.preventDefault();
-    addProduct();
+    addFood();
   };
 
   return (
-    <div className='add-product'>
+    <div className='add-food'>
       <h1 />
       <form onSubmit={handleSubmit} noValidate>
         <Row>
@@ -42,10 +42,10 @@ const AddProduct = props => {
               error={formErrors['sku']}
               label={'Sku'}
               name={'sku'}
-              placeholder={'Product Sku'}
-              value={productFormData.sku}
+              placeholder={'Food Sku'}
+              value={foodFormData.sku}
               onInputChange={(name, value) => {
-                productChange(name, value);
+                foodChange(name, value);
               }}
             />
           </Col>
@@ -55,10 +55,10 @@ const AddProduct = props => {
               error={formErrors['name']}
               label={'Name'}
               name={'name'}
-              placeholder={'Product Name'}
-              value={productFormData.name}
+              placeholder={'Food Name'}
+              value={foodFormData.name}
               onInputChange={(name, value) => {
-                productChange(name, value);
+                foodChange(name, value);
               }}
             />
           </Col>
@@ -68,10 +68,10 @@ const AddProduct = props => {
               error={formErrors['description']}
               label={'Description'}
               name={'description'}
-              placeholder={'Product Description'}
-              value={productFormData.description}
+              placeholder={'Food Description'}
+              value={foodFormData.description}
               onInputChange={(name, value) => {
-                productChange(name, value);
+                foodChange(name, value);
               }}
             />
           </Col>
@@ -82,10 +82,10 @@ const AddProduct = props => {
               label={'Quantity'}
               name={'quantity'}
               decimals={false}
-              placeholder={'Product Quantity'}
-              value={productFormData.quantity}
+              placeholder={'Food Quantity'}
+              value={foodFormData.quantity}
               onInputChange={(name, value) => {
-                productChange(name, value);
+                foodChange(name, value);
               }}
             />
           </Col>
@@ -96,10 +96,10 @@ const AddProduct = props => {
               label={'Price'}
               name={'price'}
               min={1}
-              placeholder={'Product Price'}
-              value={productFormData.price}
+              placeholder={'Food Price'}
+              value={foodFormData.price}
               onInputChange={(name, value) => {
-                productChange(name, value);
+                foodChange(name, value);
               }}
             />
           </Col>
@@ -111,7 +111,7 @@ const AddProduct = props => {
               name={'taxable'}
               options={taxableSelect}
               handleSelectChange={value => {
-                productChange('taxable', value.value);
+                foodChange('taxable', value.value);
               }}
             />
           </Col>
@@ -136,27 +136,27 @@ const AddProduct = props => {
               placeholder={'Please Upload Image'}
               value={image}
               onInputChange={(name, value) => {
-                productChange(name, value);
+                foodChange(name, value);
               }}
             />
           </Col>
           <Col xs='12' md='12' className='my-2'>
             <Switch
-              id={'active-product'}
+              id={'active-food'}
               name={'isActive'}
               label={'Active?'}
-              checked={productFormData.isActive}
-              toggleCheckboxChange={value => productChange('isActive', value)}
+              checked={foodFormData.isActive}
+              toggleCheckboxChange={value => foodChange('isActive', value)}
             />
           </Col>
         </Row>
         <hr />
-        <div className='add-product-actions'>
-          <Button type='submit' text='Add Product' />
+        <div className='add-food-actions'>
+          <Button type='submit' text='Add Food' />
         </div>
       </form>
     </div>
   );
 };
 
-export default AddProduct;
+export default AddFood;

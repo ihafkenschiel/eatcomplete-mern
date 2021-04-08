@@ -10,51 +10,51 @@ import { connect } from 'react-redux';
 
 import actions from '../../actions';
 
-import EditProduct from '../../components/Manager/EditProduct';
+import EditFood from '../../components/Manager/EditFood';
 import SubPage from '../../components/Manager/SubPage';
 import NotFound from '../../components/Common/NotFound';
 
 class Edit extends React.PureComponent {
   componentDidMount() {
-    const productId = this.props.match.params.id;
-    this.props.fetchProduct(productId);
+    const foodId = this.props.match.params.id;
+    this.props.fetchFood(foodId);
   }
 
   componentDidUpdate(prevProps) {
     if (this.props.match.params.id !== prevProps.match.params.id) {
-      const productId = this.props.match.params.id;
-      this.props.fetchProduct(productId);
+      const foodId = this.props.match.params.id;
+      this.props.fetchFood(foodId);
     }
   }
 
   render() {
     const {
       history,
-      product,
+      food,
       formErrors,
-      productEditChange,
-      updateProduct,
-      deleteProduct,
-      activateProduct
+      foodEditChange,
+      updateFood,
+      deleteFood,
+      activateFood
     } = this.props;
 
     return (
       <SubPage
-        title='Edit Product'
+        title='Edit Food'
         actionTitle='Cancel'
         handleAction={() => history.goBack()}
       >
-        {product?._id ? (
-          <EditProduct
-            product={product}
+        {food?._id ? (
+          <EditFood
+            food={food}
             formErrors={formErrors}
-            productChange={productEditChange}
-            updateProduct={updateProduct}
-            deleteProduct={deleteProduct}
-            activateProduct={activateProduct}
+            foodChange={foodEditChange}
+            updateFood={updateFood}
+            deleteFood={deleteFood}
+            activateFood={activateFood}
           />
         ) : (
-          <NotFound message='no product found.' />
+          <NotFound message='no food found.' />
         )}
       </SubPage>
     );
@@ -63,8 +63,8 @@ class Edit extends React.PureComponent {
 
 const mapStateToProps = state => {
   return {
-    product: state.product.product,
-    formErrors: state.product.editFormErrors
+    food: state.food.food,
+    formErrors: state.food.editFormErrors
   };
 };
 

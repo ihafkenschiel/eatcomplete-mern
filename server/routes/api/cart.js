@@ -3,16 +3,16 @@ const router = express.Router();
 
 // Bring in Models & Helpers
 const Cart = require('../../models/cart');
-const Product = require('../../models/product');
+const Food = require('../../models/food');
 const auth = require('../../middleware/auth');
 
 router.post('/add', auth, (req, res) => {
   const user = req.user._id;
-  const products = req.body.products;
+  const foods = req.body.foods;
 
   const cart = new Cart({
     user,
-    products
+    foods
   });
 
   cart.save((err, data) => {
@@ -22,7 +22,7 @@ router.post('/add', auth, (req, res) => {
       });
     }
 
-    decreaseQuantity(products);
+    decreaseQuantity(foods);
 
     res.status(200).json({
       success: true,
@@ -45,10 +45,10 @@ router.delete('/delete/:cartId', auth, (req, res) => {
 });
 
 router.post('/add/:cartId', auth, (req, res) => {
-  const product = req.body.product;
+  const food = req.body.food;
   const query = { _id: req.params.cartId };
 
-  Cart.updateOne(query, { $push: { products: product } }).exec(err => {
+  Cart.updateOne(query, { $push: { foods: food } }).exec(err => {
     if (err) {
       return res.status(400).json({
         error: 'Your request could not be processed. Please try again.'
@@ -60,11 +60,11 @@ router.post('/add/:cartId', auth, (req, res) => {
   });
 });
 
-router.delete('/delete/:cartId/:productId', auth, (req, res) => {
-  const product = { product: req.params.productId };
+router.delete('/delete/:cartId/:foodId', auth, (req, res) => {
+  const food = { food: req.params.foodId };
   const query = { _id: req.params.cartId };
 
-  Cart.updateOne(query, { $pull: { products: product } }).exec(err => {
+  Cart.updateOne(query, { $pull: { foods: food } }).exec(err => {
     if (err) {
       return res.status(400).json({
         error: 'Your request could not be processed. Please try again.'
@@ -76,17 +76,17 @@ router.delete('/delete/:cartId/:productId', auth, (req, res) => {
   });
 });
 
-const decreaseQuantity = products => {
-  let bulkOptions = products.map(item => {
+const decreaseQuantity = foods => {
+  let bulkOptions = foods.map(item => {
     return {
       updateOne: {
-        filter: { _id: item.product },
+        filter: { _id: item.food },
         update: { $inc: { quantity: -item.quantity } }
       }
     };
   });
 
-  Product.bulkWrite(bulkOptions);
+  Food.bulkWrite(bulkOptions);
 };
 
 module.exports = router;

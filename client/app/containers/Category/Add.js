@@ -15,17 +15,17 @@ import SubPage from '../../components/Manager/SubPage';
 
 class Add extends React.PureComponent {
   componentDidMount() {
-    this.props.fetchProductsSelect();
+    this.props.fetchFoodsSelect();
   }
 
   render() {
     const {
       history,
-      products,
+      foods,
       categoryFormData,
       formErrors,
-      selectedProducts,
-      handleProductSelect,
+      selectedFoods,
+      handleFoodselect,
       categoryChange,
       addCategory
     } = this.props;
@@ -37,11 +37,11 @@ class Add extends React.PureComponent {
         handleAction={() => history.goBack()}
       >
         <AddCategory
-          products={products}
+          foods={foods}
           categoryFormData={categoryFormData}
           formErrors={formErrors}
-          selectedProducts={selectedProducts}
-          handleProductSelect={handleProductSelect}
+          selectedFoods={selectedFoods}
+          handleFoodselect={handleFoodselect}
           categoryChange={categoryChange}
           addCategory={addCategory}
         />
@@ -52,10 +52,10 @@ class Add extends React.PureComponent {
 
 const mapStateToProps = state => {
   return {
-    products: state.product.productsSelect,
+    foods: state.food.foodsSelect,
     categoryFormData: state.category.categoryFormData,
     formErrors: state.category.formErrors,
-    selectedProducts: state.product.selectedProducts
+    selectedFoods: state.food.selectedFoods
   };
 };
 

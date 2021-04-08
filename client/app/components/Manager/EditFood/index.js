@@ -1,6 +1,6 @@
 /**
  *
- * EditProduct
+ * EditFood
  *
  */
 
@@ -12,23 +12,23 @@ import Input from '../../Common/Input';
 import Switch from '../../Common/Switch';
 import Button from '../../Common/Button';
 
-const EditProduct = props => {
+const EditFood = props => {
   const {
-    product,
-    productChange,
+    food,
+    foodChange,
     formErrors,
-    updateProduct,
-    deleteProduct,
-    activateProduct
+    updateFood,
+    deleteFood,
+    activateFood
   } = props;
 
   const handleSubmit = event => {
     event.preventDefault();
-    updateProduct();
+    updateFood();
   };
 
   return (
-    <div className='edit-product'>
+    <div className='edit-food'>
       <form onSubmit={handleSubmit} noValidate>
         <Row>
           <Col xs='12'>
@@ -37,10 +37,10 @@ const EditProduct = props => {
               error={formErrors['name']}
               label={'Name'}
               name={'name'}
-              placeholder={'Product Name'}
-              value={product.name}
+              placeholder={'Food Name'}
+              value={food.name}
               onInputChange={(name, value) => {
-                productChange(name, value);
+                foodChange(name, value);
               }}
             />
           </Col>
@@ -50,22 +50,22 @@ const EditProduct = props => {
               error={formErrors['description']}
               label={'Description'}
               name={'description'}
-              placeholder={'Product Description'}
-              value={product.description}
+              placeholder={'Food Description'}
+              value={food.description}
               onInputChange={(name, value) => {
-                productChange(name, value);
+                foodChange(name, value);
               }}
             />
           </Col>
           <Col xs='12' md='12'>
             <Switch
-              id={`enable-product-${product._id}`}
+              id={`enable-food-${food._id}`}
               name={'isActive'}
               label={'Active?'}
-              checked={product?.isActive}
+              checked={food?.isActive}
               toggleCheckboxChange={value => {
-                productChange('isActive', value);
-                activateProduct(product._id, value);
+                foodChange('isActive', value);
+                activateFood(food._id, value);
               }}
             />
           </Col>
@@ -80,7 +80,7 @@ const EditProduct = props => {
           <Button
             variant='danger'
             text='Delete'
-            onClick={() => deleteProduct(product._id)}
+            onClick={() => deleteFood(food._id)}
           />
         </div>
       </form>
@@ -88,4 +88,4 @@ const EditProduct = props => {
   );
 };
 
-export default EditProduct;
+export default EditFood;

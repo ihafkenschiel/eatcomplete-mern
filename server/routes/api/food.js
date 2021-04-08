@@ -4,7 +4,7 @@ const multer = require('multer');
 const AWS = require('aws-sdk');
 
 // Bring in Models & Helpers
-const Product = require('../../models/product');
+const Food = require('../../models/food');
 const Brand = require('../../models/brand');
 const Category = require('../../models/category');
 const auth = require('../../middleware/auth');
@@ -48,9 +48,9 @@ router.post(
         return res.status(400).json({ error: 'You must enter a price.' });
       }
 
-      const foundProduct = await Product.findOne({ sku });
+      const foundFood = await Food.findOne({ sku });
 
-      if (foundProduct) {
+      if (foundFood) {
         return res.status(400).json({ error: 'This sku is already in use.' });
       }
 
@@ -78,7 +78,7 @@ router.post(
         imageKey = s3Upload.key;
       }
 
-      const product = new Product({
+      const food = new Food({
         sku,
         name,
         description,
@@ -91,12 +91,12 @@ router.post(
         imageKey
       });
 
-      const savedProduct = await product.save();
+      const savedFood = await food.save();
 
       res.status(200).json({
         success: true,
-        message: `Product has been added successfully!`,
-        product: savedProduct
+        message: `Food has been added successfully!`,
+        food: savedFood
       });
     } catch (error) {
       return res.status(400).json({
@@ -106,15 +106,15 @@ router.post(
   }
 );
 
-// fetch store products api
+// fetch store foods api
 router.get('/list', async (req, res) => {
   try {
-    const products = await Product.find({ isActive: true }).populate(
+    const foods = await Food.find({ isActive: true }).populate(
       'brand',
       'name'
     );
     res.status(200).json({
-      products
+      foods
     });
   } catch (error) {
     res.status(400).json({
@@ -123,14 +123,14 @@ router.get('/list', async (req, res) => {
   }
 });
 
-// fetch products api
+// fetch foods api
 router.get(
   '/',
   auth,
   role.checkRole(role.ROLES.Admin, role.ROLES.Merchant),
   async (req, res) => {
     try {
-      let products = [];
+      let foods = [];
 
       if (req.user.merchant) {
         const brands = await Brand.find({
@@ -139,7 +139,7 @@ router.get(
 
         const brandId = brands[0]['_id'];
 
-        products = await Product.find({})
+        foods = await Food.find({})
           .populate({
             path: 'brand',
             populate: {
@@ -149,7 +149,7 @@ router.get(
           })
           .where('brand', brandId);
       } else {
-        products = await Product.find({}).populate({
+        foods = await Food.find({}).populate({
           path: 'brand',
           populate: {
             path: 'merchant',
@@ -159,7 +159,7 @@ router.get(
       }
 
       res.status(200).json({
-        products
+        foods
       });
     } catch (error) {
       res.status(400).json({
@@ -169,23 +169,23 @@ router.get(
   }
 );
 
-// fetch product api
+// fetch food api
 router.get('/:id', async (req, res) => {
   try {
-    const productId = req.params.id;
+    const foodId = req.params.id;
 
-    const productDoc = await Product.findOne({ _id: productId }).populate(
+    const foodDoc = await Food.findOne({ _id: foodId }).populate(
       'brand'
     );
 
-    if (!productDoc) {
+    if (!foodDoc) {
       return res.status(404).json({
-        message: 'No product found.'
+        message: 'No food found.'
       });
     }
 
     res.status(200).json({
-      product: productDoc
+      food: foodDoc
     });
   } catch (error) {
     res.status(400).json({
@@ -194,23 +194,23 @@ router.get('/:id', async (req, res) => {
   }
 });
 
-// fetch product slug api
+// fetch food slug api
 router.get('/item/:slug', async (req, res) => {
   try {
     const slug = req.params.slug;
 
-    const productDoc = await Product.findOne({ slug, isActive: true }).populate(
+    const foodDoc = await Food.findOne({ slug, isActive: true }).populate(
       'brand'
     );
 
-    if (!productDoc) {
+    if (!foodDoc) {
       return res.status(404).json({
-        message: 'No product found.'
+        message: 'No food found.'
       });
     }
 
     res.status(200).json({
-      product: productDoc
+      food: foodDoc
     });
   } catch (error) {
     res.status(400).json({
@@ -219,24 +219,24 @@ router.get('/item/:slug', async (req, res) => {
   }
 });
 
-// fetch all products by category api
+// fetch all foods by category api
 router.get('/list/category/:slug', async (req, res) => {
   try {
     const slug = req.params.slug;
 
     const categoryDoc = await Category.findOne(
       { slug, isActive: true },
-      'products -_id'
-    ).populate('products');
+      'foods -_id'
+    ).populate('foods');
 
     if (!categoryDoc) {
       return res.status(404).json({
-        message: 'No products found.'
+        message: 'No foods found.'
       });
     }
 
     res.status(200).json({
-      products: categoryDoc ? categoryDoc.products : categoryDoc
+      foods: categoryDoc ? categoryDoc.foods : categoryDoc
     });
   } catch (error) {
     res.status(400).json({
@@ -245,7 +245,7 @@ router.get('/list/category/:slug', async (req, res) => {
   }
 });
 
-// fetch all products by brand api
+// fetch all foods by brand api
 router.get('/list/brand/:slug', async (req, res) => {
   try {
     const slug = req.params.slug;
@@ -258,13 +258,13 @@ router.get('/list/brand/:slug', async (req, res) => {
       });
     }
 
-    const products = await Product.find({ brand: brand[0]._id }).populate(
+    const foods = await Food.find({ brand: brand[0]._id }).populate(
       'brand',
       'name'
     );
 
     res.status(200).json({
-      products
+      foods
     });
   } catch (error) {
     res.status(400).json({
@@ -275,10 +275,10 @@ router.get('/list/brand/:slug', async (req, res) => {
 
 router.get('/list/select', auth, async (req, res) => {
   try {
-    const products = await Product.find({}, 'name');
+    const foods = await Food.find({}, 'name');
 
     res.status(200).json({
-      products
+      foods
     });
   } catch (error) {
     res.status(400).json({
@@ -293,17 +293,17 @@ router.put(
   role.checkRole(role.ROLES.Admin, role.ROLES.Merchant),
   async (req, res) => {
     try {
-      const productId = req.params.id;
-      const update = req.body.product;
-      const query = { _id: productId };
+      const foodId = req.params.id;
+      const update = req.body.food;
+      const query = { _id: foodId };
 
-      await Product.findOneAndUpdate(query, update, {
+      await Food.findOneAndUpdate(query, update, {
         new: true
       });
 
       res.status(200).json({
         success: true,
-        message: 'Product has been updated successfully!'
+        message: 'Food has been updated successfully!'
       });
     } catch (error) {
       res.status(400).json({
@@ -319,17 +319,17 @@ router.put(
   role.checkRole(role.ROLES.Admin, role.ROLES.Merchant),
   async (req, res) => {
     try {
-      const productId = req.params.id;
-      const update = req.body.product;
-      const query = { _id: productId };
+      const foodId = req.params.id;
+      const update = req.body.food;
+      const query = { _id: foodId };
 
-      await Product.findOneAndUpdate(query, update, {
+      await Food.findOneAndUpdate(query, update, {
         new: true
       });
 
       res.status(200).json({
         success: true,
-        message: 'Product has been updated successfully!'
+        message: 'Food has been updated successfully!'
       });
     } catch (error) {
       res.status(400).json({
@@ -345,12 +345,12 @@ router.delete(
   role.checkRole(role.ROLES.Admin, role.ROLES.Merchant),
   async (req, res) => {
     try {
-      const product = await Product.deleteOne({ _id: req.params.id });
+      const food = await Food.deleteOne({ _id: req.params.id });
 
       res.status(200).json({
         success: true,
-        message: `Product has been deleted successfully!`,
-        product
+        message: `Food has been deleted successfully!`,
+        food
       });
     } catch (error) {
       res.status(400).json({

@@ -10,8 +10,8 @@ const options = {
 
 Mongoose.plugin(slug, options);
 
-// Product Schema
-const ProductSchema = new Schema({
+// Food Schema
+const Foodschema = new Schema({
   sku: {
     type: String
   },
@@ -60,4 +60,4 @@ const ProductSchema = new Schema({
   }
 });
 
-module.exports = Mongoose.model('Product', ProductSchema);
+module.exports = Mongoose.model('Food', Foodschema);

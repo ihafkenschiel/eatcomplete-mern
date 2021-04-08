@@ -10,7 +10,7 @@ import { connect } from 'react-redux';
 
 import actions from '../../actions';
 
-import AddProduct from '../../components/Manager/AddProduct';
+import AddFood from '../../components/Manager/AddFood';
 import SubPage from '../../components/Manager/SubPage';
 
 class Add extends React.PureComponent {
@@ -21,31 +21,31 @@ class Add extends React.PureComponent {
   render() {
     const {
       history,
-      productFormData,
+      foodFormData,
       formErrors,
       taxableSelect,
       selectedBrands,
       brands,
-      productChange,
+      foodChange,
       handleBrandSelect,
-      addProduct
+      addFood
     } = this.props;
 
     return (
       <SubPage
-        title='Add Product'
+        title='Add Food'
         actionTitle='Cancel'
         handleAction={() => history.goBack()}
       >
-        <AddProduct
-          productFormData={productFormData}
+        <AddFood
+          foodFormData={foodFormData}
           formErrors={formErrors}
           taxableSelect={taxableSelect}
           selectedBrands={selectedBrands}
           brands={brands}
-          productChange={productChange}
+          foodChange={foodChange}
           handleBrandSelect={handleBrandSelect}
-          addProduct={addProduct}
+          addFood={addFood}
         />
       </SubPage>
     );
@@ -54,9 +54,9 @@ class Add extends React.PureComponent {
 
 const mapStateToProps = state => {
   return {
-    productFormData: state.product.productFormData,
-    formErrors: state.product.formErrors,
-    taxableSelect: state.product.taxableSelect,
+    foodFormData: state.food.foodFormData,
+    formErrors: state.food.formErrors,
+    taxableSelect: state.food.taxableSelect,
     selectedBrands: state.brand.selectedBrands,
     brands: state.brand.brandsSelect
   };

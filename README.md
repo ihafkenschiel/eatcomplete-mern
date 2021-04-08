@@ -52,6 +52,10 @@ $ npm install
 ### JWT 
 You can generate a Java Web Token (JWT) Secret here: https://jwt.io/#debugger-io
 
+### MongoDB
+
+[Sign up for an account here](https://cloud.mongodb.com) and enter your MONGO_URI in the .env file.
+
 ### Passport Authentication
 http://www.passportjs.org/docs/configure/
 

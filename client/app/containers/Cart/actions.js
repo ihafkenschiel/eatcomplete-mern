@@ -18,21 +18,21 @@ import {
 } from './constants';
 
 import {
-  SET_PRODUCT_SHOP_FORM_ERRORS,
-  RESET_PRODUCT_SHOP
-} from '../Product/constants';
+  SET_FOOD_SHOP_FORM_ERRORS,
+  RESET_FOOD_SHOP
+} from '../Food/constants';
 
 import handleError from '../../utils/error';
 import { toggleCart } from '../Navigation/actions';
 import { allFieldsValidation } from '../../utils/validation';
 
 // Handle Add To Cart
-export const handleAddToCart = product => {
+export const handleAddToCart = food => {
   return (dispatch, getState) => {
-    product.quantity = Number(getState().product.productShopData.quantity);
-    product.totalPrice = product.quantity * product.price;
-    product.totalPrice = parseFloat(product.totalPrice.toFixed(2));
-    const inventory = getState().product.product.inventory;
+    food.quantity = Number(getState().food.foodshopData.quantity);
+    food.totalPrice = food.quantity * food.price;
+    food.totalPrice = parseFloat(food.totalPrice.toFixed(2));
+    const inventory = getState().food.food.inventory;
 
     const result = calculatePurchaseQuantity(inventory);
 
@@ -40,22 +40,22 @@ export const handleAddToCart = product => {
       quantity: `min:1|max:${result}`
     };
 
-    const { isValid, errors } = allFieldsValidation(product, rules, {
+    const { isValid, errors } = allFieldsValidation(food, rules, {
       'min.quantity': 'Quantity must be at least 1.',
       'max.quantity': `Quantity may not be greater than ${result}.`
     });
 
     if (!isValid) {
-      return dispatch({ type: SET_PRODUCT_SHOP_FORM_ERRORS, payload: errors });
+      return dispatch({ type: SET_FOOD_SHOP_FORM_ERRORS, payload: errors });
     }
 
     dispatch({
-      type: RESET_PRODUCT_SHOP
+      type: RESET_FOOD_SHOP
     });
 
     dispatch({
       type: ADD_TO_CART,
-      payload: product
+      payload: food
     });
     dispatch(calculateCartTotal());
     dispatch(toggleCart());
@@ -63,11 +63,11 @@ export const handleAddToCart = product => {
 };
 
 // Handle Remove From Cart
-export const handleRemoveFromCart = product => {
+export const handleRemoveFromCart = food => {
   return (dispatch, getState) => {
     dispatch({
       type: REMOVE_FROM_CART,
-      payload: product
+      payload: food
     });
     dispatch(calculateCartTotal());
     // dispatch(toggleCart());
@@ -140,11 +140,11 @@ export const getCartId = () => {
     try {
       const cartId = localStorage.getItem('cart_id');
       const cartItems = getState().cart.cartItems;
-      const products = getCartItems(cartItems);
+      const foods = getCartItems(cartItems);
 
       // create cart id if there is no one
       if (!cartId) {
-        const response = await axios.post(`/api/cart/add`, { products });
+        const response = await axios.post(`/api/cart/add`, { foods });
 
         dispatch(setCartId(response.data.cartId));
       }
@@ -182,7 +182,7 @@ const getCartItems = cartItems => {
     const newItem = {};
     newItem.quantity = item.quantity;
     newItem.totalPrice = item.totalPrice;
-    newItem.product = item._id;
+    newItem.food = item._id;
     newCartItems.push(newItem);
   });
 

@@ -3,7 +3,7 @@ const router = express.Router();
 
 // Bring in Models & Helpers
 const Brand = require('../../models/brand');
-const Product = require('../../models/product');
+const Food = require('../../models/food');
 const auth = require('../../middleware/auth');
 const role = require('../../middleware/role');
 const store = require('../../helpers/store');
@@ -178,10 +178,10 @@ router.put(
       const update = req.body.brand;
       const query = { _id: brandId };
 
-      // disable brand(brandId) products
+      // disable brand(brandId) foods
       if (!update.isActive) {
-        const products = await Product.find({ brand: brandId });
-        store.disableProducts(products);
+        const foods = await Food.find({ brand: brandId });
+        store.disableFoods(foods);
       }
 
       await Brand.findOneAndUpdate(query, update, {

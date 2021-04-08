@@ -10,25 +10,25 @@ import { connect } from 'react-redux';
 
 import actions from '../../actions';
 
-import ProductList from '../../components/Manager/ProductList';
+import FoodList from '../../components/Manager/FoodList';
 import SubPage from '../../components/Manager/SubPage';
 
 class List extends React.PureComponent {
   componentDidMount() {
-    this.props.fetchProducts();
+    this.props.fetchFoods();
   }
 
   render() {
-    const { history, products } = this.props;
+    const { history, foods } = this.props;
 
     return (
       <>
         <SubPage
-          title='Products'
+          title='Foods'
           actionTitle='Add'
-          handleAction={() => history.push('/dashboard/product/add')}
+          handleAction={() => history.push('/dashboard/food/add')}
         >
-          <ProductList products={products} />
+          <FoodList foods={foods} />
         </SubPage>
       </>
     );
@@ -37,7 +37,7 @@ class List extends React.PureComponent {
 
 const mapStateToProps = state => {
   return {
-    products: state.product.products,
+    foods: state.food.foods,
     user: state.account.user
   };
 };

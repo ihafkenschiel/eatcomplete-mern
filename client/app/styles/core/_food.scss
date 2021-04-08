@@ -1,7 +1,7 @@
-/* start product dashboard styles */
-.product-dashboard {
+/* start food dashboard styles */
+.food-dashboard {
   .p-list {
-    .product-box {
+    .food-box {
       height: 100%;
       border-radius: $border-radius-default;
       box-shadow: $secondary-box-shadow;
@@ -21,17 +21,17 @@
         }
       }
 
-      .product-desc {
+      .food-desc {
         @include text-ellipsis(2);
       }
     }
   }
 }
-/* end product dashboard styles */
+/* end food dashboard styles */
 
-/* start product list styles */
-.product-list {
-  .product-container {
+/* start food list styles */
+.food-list {
+  .food-container {
     background-color: $white;
     box-shadow: $primary-box-shadow;
     border-radius: $border-radius-default;
@@ -75,16 +75,16 @@
     }
   }
 }
-/* end product list styles */
+/* end food list styles */
 
-/* start product page styles */
-.product-page {
+/* start food page styles */
+.food-page {
   .main {
     background-color: $theme-white;
   }
 }
 
-.product-shop {
+.food-shop {
   .stock {
     position: absolute;
     top: 0;
@@ -94,7 +94,7 @@
     border-bottom-left-radius: $border-radius-default;
   }
 
-  .product-container {
+  .food-container {
     background-color: $white;
     padding: 20px;
     box-shadow: $primary-box-shadow;
@@ -125,9 +125,9 @@
     }
   }
 }
-/* end product page styles */
+/* end food page styles */
 
-/* start product common styles */
+/* start food common styles */
 .item-box {
   .item-link {
     display: block;
@@ -179,4 +179,4 @@
   color: $theme-bright-red;
 }
 
-/* end product common styles */
+/* end food common styles */

@@ -21,7 +21,7 @@ const BrandList = props => {
             <h4 className='mb-0'>{brand.name}</h4>
             <Switch
               tooltip={brand.isActive}
-              tooltipContent={`Disabling ${brand.name} will also disable all ${brand.name} products.`}
+              tooltipContent={`Disabling ${brand.name} will also disable all ${brand.name} foods.`}
               id={`enable-brand-${brand._id}`}
               name={'isActive'}
               checked={brand.isActive}

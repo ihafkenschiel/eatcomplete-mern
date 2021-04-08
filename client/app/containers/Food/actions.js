@@ -1,6 +1,6 @@
 /*
  *
- * Product actions
+ * Food actions
  *
  */
 
@@ -9,21 +9,21 @@ import { success } from 'react-notification-system-redux';
 import axios from 'axios';
 
 import {
-  FETCH_PRODUCTS,
-  FETCH_STORE_PRODUCTS,
-  FETCH_PRODUCT,
-  FETCH_STORE_PRODUCT,
-  PRODUCT_CHANGE,
-  PRODUCT_EDIT_CHANGE,
-  PRODUCT_SHOP_CHANGE,
-  SET_PRODUCT_FORM_ERRORS,
-  SET_PRODUCT_FORM_EDIT_ERRORS,
-  RESET_PRODUCT,
-  ADD_PRODUCT,
-  REMOVE_PRODUCT,
-  PRODUCT_SELECT,
-  FETCH_PRODUCTS_SELECT,
-  SET_PRODUCTS_LOADING
+  FETCH_FOODS,
+  FETCH_STORE_FOODS,
+  FETCH_FOOD,
+  FETCH_STORE_FOOD,
+  FOOD_CHANGE,
+  FOOD_EDIT_CHANGE,
+  FOOD_SHOP_CHANGE,
+  SET_FOOD_FORM_ERRORS,
+  SET_FOOD_FORM_EDIT_ERRORS,
+  RESET_FOOD,
+  ADD_FOOD,
+  REMOVE_FOOD,
+  FOOD_SELECT,
+  FETCH_FOODS_SELECT,
+  SET_FOODS_LOADING
 } from './constants';
 
 import { RESET_BRAND } from '../Brand/constants';
@@ -32,51 +32,51 @@ import handleError from '../../utils/error';
 import { formatSelectOptions } from '../../helpers/select';
 import { allFieldsValidation } from '../../utils/validation';
 
-export const productChange = (name, value) => {
+export const foodChange = (name, value) => {
   let formData = {};
   formData[name] = value;
   return {
-    type: PRODUCT_CHANGE,
+    type: FOOD_CHANGE,
     payload: formData
   };
 };
 
-export const productEditChange = (name, value) => {
+export const foodEditChange = (name, value) => {
   let formData = {};
   formData[name] = value;
 
   return {
-    type: PRODUCT_EDIT_CHANGE,
+    type: FOOD_EDIT_CHANGE,
     payload: formData
   };
 };
 
-export const productShopChange = (name, value) => {
+export const foodshopChange = (name, value) => {
   let formData = {};
   formData[name] = value;
 
   return {
-    type: PRODUCT_SHOP_CHANGE,
+    type: FOOD_SHOP_CHANGE,
     payload: formData
   };
 };
 
-export const handleProductSelect = value => {
+export const handleFoodselect = value => {
   return {
-    type: PRODUCT_SELECT,
+    type: FOOD_SELECT,
     payload: value
   };
 };
 
-// fetch products api
-export const fetchProducts = () => {
+// fetch foods api
+export const fetchFoods = () => {
   return async (dispatch, getState) => {
     try {
-      const response = await axios.get(`/api/product`);
+      const response = await axios.get(`/api/food`);
 
       dispatch({
-        type: FETCH_PRODUCTS,
-        payload: response.data.products
+        type: FETCH_FOODS,
+        payload: response.data.foods
       });
     } catch (error) {
       handleError(error, dispatch);
@@ -84,115 +84,115 @@ export const fetchProducts = () => {
   };
 };
 
-// fetch store products api
-export const fetchStoreProducts = () => {
+// fetch store foods api
+export const fetchStoreFoods = () => {
   return async (dispatch, getState) => {
-    dispatch({ type: SET_PRODUCTS_LOADING, payload: true });
+    dispatch({ type: SET_FOODS_LOADING, payload: true });
 
     try {
-      const response = await axios.get(`/api/product/list`);
+      const response = await axios.get(`/api/food/list`);
       dispatch({
-        type: FETCH_STORE_PRODUCTS,
-        payload: response.data.products
-      });
-    } catch (error) {
-      handleError(error, dispatch);
-    } finally {
-      dispatch({ type: SET_PRODUCTS_LOADING, payload: false });
-    }
-  };
-};
-
-// fetch product api
-export const fetchProduct = id => {
-  return async (dispatch, getState) => {
-    try {
-      const response = await axios.get(`/api/product/${id}`);
-
-      const inventory = response.data.product.quantity;
-      const product = { ...response.data.product, inventory };
-
-      dispatch({
-        type: FETCH_PRODUCT,
-        payload: product
-      });
-    } catch (error) {
-      handleError(error, dispatch);
-    }
-  };
-};
-
-// fetch store product api
-export const fetchStoreProduct = slug => {
-  return async (dispatch, getState) => {
-    dispatch({ type: SET_PRODUCTS_LOADING, payload: true });
-
-    try {
-      const response = await axios.get(`/api/product/item/${slug}`);
-
-      const inventory = response.data.product.quantity;
-      const product = { ...response.data.product, inventory };
-
-      dispatch({
-        type: FETCH_STORE_PRODUCT,
-        payload: product
+        type: FETCH_STORE_FOODS,
+        payload: response.data.foods
       });
     } catch (error) {
       handleError(error, dispatch);
     } finally {
-      dispatch({ type: SET_PRODUCTS_LOADING, payload: false });
+      dispatch({ type: SET_FOODS_LOADING, payload: false });
     }
   };
 };
 
-export const fetchBrandProducts = slug => {
+// fetch food api
+export const fetchFood = id => {
   return async (dispatch, getState) => {
-    dispatch({ type: SET_PRODUCTS_LOADING, payload: true });
-
     try {
-      const response = await axios.get(`/api/product/list/brand/${slug}`);
+      const response = await axios.get(`/api/food/${id}`);
+
+      const inventory = response.data.food.quantity;
+      const food = { ...response.data.food, inventory };
 
       dispatch({
-        type: FETCH_PRODUCTS,
-        payload: response.data.products
+        type: FETCH_FOOD,
+        payload: food
+      });
+    } catch (error) {
+      handleError(error, dispatch);
+    }
+  };
+};
+
+// fetch store food api
+export const fetchStoreFood = slug => {
+  return async (dispatch, getState) => {
+    dispatch({ type: SET_FOODS_LOADING, payload: true });
+
+    try {
+      const response = await axios.get(`/api/food/item/${slug}`);
+
+      const inventory = response.data.food.quantity;
+      const food = { ...response.data.food, inventory };
+
+      dispatch({
+        type: FETCH_STORE_FOOD,
+        payload: food
       });
     } catch (error) {
       handleError(error, dispatch);
     } finally {
-      dispatch({ type: SET_PRODUCTS_LOADING, payload: false });
+      dispatch({ type: SET_FOODS_LOADING, payload: false });
     }
   };
 };
 
-export const fetchCategoryProducts = slug => {
+export const fetchBrandFoods = slug => {
   return async (dispatch, getState) => {
-    dispatch({ type: SET_PRODUCTS_LOADING, payload: true });
+    dispatch({ type: SET_FOODS_LOADING, payload: true });
 
     try {
-      const response = await axios.get(`/api/product/list/category/${slug}`);
+      const response = await axios.get(`/api/food/list/brand/${slug}`);
 
       dispatch({
-        type: FETCH_PRODUCTS,
-        payload: response.data.products
+        type: FETCH_FOODS,
+        payload: response.data.foods
       });
     } catch (error) {
       handleError(error, dispatch);
     } finally {
-      dispatch({ type: SET_PRODUCTS_LOADING, payload: false });
+      dispatch({ type: SET_FOODS_LOADING, payload: false });
     }
   };
 };
 
-export const fetchProductsSelect = () => {
+export const fetchCategoryFoods = slug => {
   return async (dispatch, getState) => {
-    try {
-      const response = await axios.get(`/api/product/list/select`);
+    dispatch({ type: SET_FOODS_LOADING, payload: true });
 
-      let formattedProducts = formatSelectOptions(response.data.products, true);
+    try {
+      const response = await axios.get(`/api/food/list/category/${slug}`);
 
       dispatch({
-        type: FETCH_PRODUCTS_SELECT,
-        payload: formattedProducts
+        type: FETCH_FOODS,
+        payload: response.data.foods
+      });
+    } catch (error) {
+      handleError(error, dispatch);
+    } finally {
+      dispatch({ type: SET_FOODS_LOADING, payload: false });
+    }
+  };
+};
+
+export const fetchFoodsSelect = () => {
+  return async (dispatch, getState) => {
+    try {
+      const response = await axios.get(`/api/food/list/select`);
+
+      let formattedFoods = formatSelectOptions(response.data.foods, true);
+
+      dispatch({
+        type: FETCH_FOODS_SELECT,
+        payload: formattedFoods
       });
     } catch (error) {
       handleError(error, dispatch);
@@ -200,8 +200,8 @@ export const fetchProductsSelect = () => {
   };
 };
 
-// add product api
-export const addProduct = () => {
+// add food api
+export const addFood = () => {
   return async (dispatch, getState) => {
     try {
       const rules = {
@@ -215,15 +215,15 @@ export const addProduct = () => {
         image: 'required'
       };
 
-      const product = getState().product.productFormData;
+      const food = getState().food.foodFormData;
       const brand = getState().brand.selectedBrands.value;
 
-      const newProduct = {
-        ...product,
+      const newFood = {
+        ...food,
         brand: brand
       };
 
-      const { isValid, errors } = allFieldsValidation(newProduct, rules, {
+      const { isValid, errors } = allFieldsValidation(newFood, rules, {
         'required.sku': 'Sku is required.',
         'min.sku': 'Sku must be at least 1 character.',
         'required.name': 'Name is required.',
@@ -240,17 +240,17 @@ export const addProduct = () => {
       });
 
       if (!isValid) {
-        return dispatch({ type: SET_PRODUCT_FORM_ERRORS, payload: errors });
+        return dispatch({ type: SET_FOOD_FORM_ERRORS, payload: errors });
       }
       const formData = new FormData();
-      if (newProduct.image) {
-        for (var key in newProduct) {
-          if (newProduct.hasOwnProperty(key)) {
-            formData.append(key, newProduct[key]);
+      if (newFood.image) {
+        for (var key in newFood) {
+          if (newFood.hasOwnProperty(key)) {
+            formData.append(key, newFood[key]);
           }
         }
       }
-      const response = await axios.post(`/api/product/add`, formData, {
+      const response = await axios.post(`/api/food/add`, formData, {
         headers: { 'Content-Type': 'multipart/form-data' }
       });
 
@@ -263,10 +263,10 @@ export const addProduct = () => {
       if (response.data.success === true) {
         dispatch(success(successfulOptions));
         dispatch({
-          type: ADD_PRODUCT,
-          payload: response.data.product
+          type: ADD_FOOD,
+          payload: response.data.food
         });
-        dispatch({ type: RESET_PRODUCT });
+        dispatch({ type: RESET_FOOD });
         dispatch({ type: RESET_BRAND });
         dispatch(goBack());
       }
@@ -276,8 +276,8 @@ export const addProduct = () => {
   };
 };
 
-// update Product api
-export const updateProduct = () => {
+// update Food api
+export const updateFood = () => {
   return async (dispatch, getState) => {
     try {
       const rules = {
@@ -285,14 +285,14 @@ export const updateProduct = () => {
         description: 'required|min:1|max:200'
       };
 
-      const product = getState().product.product;
+      const food = getState().food.food;
 
-      const newProduct = {
-        name: product.name,
-        description: product.description
+      const newFood = {
+        name: food.name,
+        description: food.description
       };
 
-      const { isValid, errors } = allFieldsValidation(newProduct, rules, {
+      const { isValid, errors } = allFieldsValidation(newFood, rules, {
         'required.name': 'Name is required.',
         'min.name': 'Name must be at least 1 character.',
         'required.description': 'Description is required.',
@@ -302,13 +302,13 @@ export const updateProduct = () => {
 
       if (!isValid) {
         return dispatch({
-          type: SET_PRODUCT_FORM_EDIT_ERRORS,
+          type: SET_FOOD_FORM_EDIT_ERRORS,
           payload: errors
         });
       }
 
-      const response = await axios.put(`/api/product/${product._id}`, {
-        product: newProduct
+      const response = await axios.put(`/api/food/${food._id}`, {
+        food: newFood
       });
 
       const successfulOptions = {
@@ -328,12 +328,12 @@ export const updateProduct = () => {
   };
 };
 
-// activate product api
-export const activateProduct = (id, value) => {
+// activate food api
+export const activateFood = (id, value) => {
   return async (dispatch, getState) => {
     try {
-      const response = await axios.put(`/api/product/${id}/active`, {
-        product: {
+      const response = await axios.put(`/api/food/${id}/active`, {
+        food: {
           isActive: value
         }
       });
@@ -353,11 +353,11 @@ export const activateProduct = (id, value) => {
   };
 };
 
-// delete product api
-export const deleteProduct = id => {
+// delete food api
+export const deleteFood = id => {
   return async (dispatch, getState) => {
     try {
-      const response = await axios.delete(`/api/product/delete/${id}`);
+      const response = await axios.delete(`/api/food/delete/${id}`);
 
       const successfulOptions = {
         title: `${response.data.message}`,
@@ -368,7 +368,7 @@ export const deleteProduct = id => {
       if (response.data.success === true) {
         dispatch(success(successfulOptions));
         dispatch({
-          type: REMOVE_PRODUCT,
+          type: REMOVE_FOOD,
           payload: id
         });
         dispatch(goBack());

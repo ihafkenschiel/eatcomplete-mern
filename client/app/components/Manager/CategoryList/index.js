@@ -21,7 +21,7 @@ const CategoryList = props => {
             <h4 className='mb-0'>{category.name}</h4>
             <Switch
               tooltip={category.isActive}
-              tooltipContent={`Disabling ${category.name} will also disable all ${category.name} products.`}
+              tooltipContent={`Disabling ${category.name} will also disable all ${category.name} foods.`}
               id={`enable-category-${category._id}`}
               name={'isActive'}
               checked={category.isActive}

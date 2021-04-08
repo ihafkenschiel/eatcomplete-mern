@@ -58,7 +58,7 @@ const Footer = () => {
         <div className='footer-copyright'>
           <span>© {new Date().getFullYear()} Ian Hafkenschiel</span>
         </div>
-        <ul className='footer-social-item'>
+        {/* <ul className='footer-social-item'>
           <li>
             <a href='/#facebook' rel='noreferrer noopener' target='_blank'>
               <span className='facebook-icon' />
@@ -74,7 +74,7 @@ const Footer = () => {
               <span className='twitter-icon' />
             </a>
           </li>
-        </ul>
+        </ul> */}
       </Container>
     </footer>
   );

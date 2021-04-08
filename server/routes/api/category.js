@@ -11,7 +11,7 @@ const store = require('../../helpers/store');
 router.post('/add', auth, role.checkRole(role.ROLES.Admin), (req, res) => {
   const name = req.body.name;
   const description = req.body.description;
-  const products = req.body.products;
+  const foods = req.body.foods;
   const isActive = req.body.isActive;
 
   if (!description || !name) {
@@ -23,7 +23,7 @@ router.post('/add', auth, role.checkRole(role.ROLES.Admin), (req, res) => {
   const category = new Category({
     name,
     description,
-    products,
+    foods,
     isActive
   });
 
@@ -126,14 +126,14 @@ router.put(
       const update = req.body.category;
       const query = { _id: categoryId };
 
-      // disable category(categoryId) products
+      // disable category(categoryId) foods
       if (!update.isActive) {
         const categoryDoc = await Category.findOne(
           { _id: categoryId, isActive: true },
-          'products -_id'
-        ).populate('products');
+          'foods -_id'
+        ).populate('foods');
 
-        store.disableProducts(categoryDoc.products);
+        store.disableFoods(categoryDoc.foods);
       }
 
       await Category.findOneAndUpdate(query, update, {
@@ -158,12 +158,12 @@ router.delete(
   role.checkRole(role.ROLES.Admin),
   async (req, res) => {
     try {
-      const product = await Category.deleteOne({ _id: req.params.id });
+      const food = await Category.deleteOne({ _id: req.params.id });
 
       res.status(200).json({
         success: true,
         message: `Category has been deleted successfully!`,
-        product
+        food
       });
     } catch (error) {
       res.status(400).json({

@@ -1,6 +1,6 @@
 /*
  *
- * Products reducer
+ * Foods reducer
  *
  */
 
@@ -8,7 +8,7 @@ import { DEFAULT_ACTION } from './constants';
 
 const initialState = {};
 
-const productsReducer = (state = initialState, action) => {
+const foodsReducer = (state = initialState, action) => {
   switch (action.type) {
     case DEFAULT_ACTION:
       return {
@@ -19,4 +19,4 @@ const productsReducer = (state = initialState, action) => {
   }
 };
 
-export default productsReducer;
+export default foodsReducer;

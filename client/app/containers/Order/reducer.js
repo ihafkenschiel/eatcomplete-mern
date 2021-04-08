@@ -18,7 +18,7 @@ const initialState = {
   order: {
     _id: '',
     cartId: '',
-    products: [],
+    foods: [],
     totalTax: 0,
     total: 0,
     status: ''
@@ -40,18 +40,18 @@ const orderReducer = (state = initialState, action) => {
         order: action.payload
       };
     case UPDATE_ORDER:
-      const itemIndex = state.order.products.findIndex(
+      const itemIndex = state.order.foods.findIndex(
         item => item._id === action.payload.itemId
       );
 
-      const newProducts = [...state.order.products];
-      newProducts[itemIndex].status = action.payload.status;
+      const newFoods = [...state.order.foods];
+      newFoods[itemIndex].status = action.payload.status;
 
       return {
         ...state,
         order: {
           ...state.order,
-          products: newProducts
+          foods: newFoods
         }
       };
     case SET_ORDERS_LOADING:

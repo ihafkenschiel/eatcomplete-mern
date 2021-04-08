@@ -1,6 +1,6 @@
 /**
  *
- * ProductList
+ * FoodList
  *
  */
 
@@ -9,12 +9,12 @@ import React from 'react';
 import { Row, Col } from 'reactstrap';
 import { Link } from 'react-router-dom';
 
-const ProductList = props => {
-  const { products } = props;
+const FoodList = props => {
+  const { foods } = props;
   return (
-    <div className='product-list'>
+    <div className='food-list'>
       <Row className='flex-row'>
-        {products.map((product, index) => (
+        {foods.map((food, index) => (
           <Col
             xs='12'
             md='6'
@@ -22,31 +22,31 @@ const ProductList = props => {
             key={index}
             className='mb-3 mb-md-3 px-3 px-md-2'
           >
-            <div className='product-container'>
+            <div className='food-container'>
               <div className='item-box'>
                 <div className='item-body'>
-                  <Link to={`/product/${product.slug}`} className='item-link'>
+                  <Link to={`/food/${food.slug}`} className='item-link'>
                     <img
                       src={`${
-                        product.imageUrl
-                          ? product.imageUrl
+                        food.imageUrl
+                          ? food.imageUrl
                           : '/images/placeholder-image.png'
                       }`}
                     />
                     <div className='item-details p-3'>
-                      <h1 className='item-name'>{product.name}</h1>
-                      {product.brand && (
+                      <h1 className='item-name'>{food.name}</h1>
+                      {food.brand && (
                         <p className='by'>
-                          By <span>{product.brand.name}</span>
+                          By <span>{food.brand.name}</span>
                         </p>
                       )}
-                      <p className='item-desc mb-0'>{product.description}</p>
+                      <p className='item-desc mb-0'>{food.description}</p>
                     </div>
                   </Link>
                 </div>
                 <div className='item-footer px-3'>
-                  <p className='price'>${product.price}</p>
-                  {/* {product.quantity > 0 ? (
+                  <p className='price'>${food.price}</p>
+                  {/* {food.quantity > 0 ? (
                       <p className='stock in-stock'>In stock</p>
                     ) : (
                       <p className='stock out-of-stock'>Out of stock</p>
@@ -61,4 +61,4 @@ const ProductList = props => {
   );
 };
 
-export default ProductList;
+export default FoodList;

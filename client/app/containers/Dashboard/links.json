@@ -3,7 +3,7 @@
     { "to": "", "name": "Account Details" },
     { "to": "/security", "name": "Account Security" },
     { "to": "/address", "name": "Address" },
-    { "to": "/product", "name": "Manage Products" },
+    { "to": "/food", "name": "Manage Foods" },
     { "to": "/category", "name": "Manage Categories" },
     { "to": "/brand", "name": "Manage Brands" },
     { "to": "/users", "name": "Manage Users" },
@@ -15,7 +15,7 @@
     { "to": "/security", "name": "Account Security" },
     { "to": "/address", "name": "Address" },
     { "to": "/brand", "name": "Manage Brands" },
-    { "to": "/product", "name": "Manage Products" },
+    { "to": "/food", "name": "Manage Foods" },
     { "to": "/orders", "name": "Manage Orders" }
   ],
   "ROLE_MEMBER": [

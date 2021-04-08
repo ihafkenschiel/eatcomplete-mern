@@ -1,7 +1,7 @@
-const Product = require('../models/product');
+const Food = require('../models/food');
 
-exports.disableProducts = products => {
-  let bulkOptions = products.map(item => {
+exports.disableFoods = foods => {
+  let bulkOptions = foods.map(item => {
     return {
       updateOne: {
         filter: { _id: item._id },
@@ -10,5 +10,5 @@ exports.disableProducts = products => {
     };
   });
 
-  Product.bulkWrite(bulkOptions);
+  Food.bulkWrite(bulkOptions);
 };

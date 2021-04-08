@@ -14,7 +14,7 @@ import Button from '../../Common/Button';
 const CartList = props => {
   const { cartItems, handleRemoveFromCart } = props;
 
-  const handleProductClick = () => {
+  const handleFoodClick = () => {
     props.toggleCart();
   };
 
@@ -37,9 +37,9 @@ const CartList = props => {
                     />
 
                     <Link
-                      to={`/product/${item.slug}`}
+                      to={`/food/${item.slug}`}
                       className='item-link one-line-ellipsis'
-                      onClick={handleProductClick}
+                      onClick={handleFoodClick}
                     >
                       <h1 className='item-name one-line-ellipsis'>
                         {item.name}

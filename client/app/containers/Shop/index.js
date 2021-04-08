@@ -11,7 +11,7 @@ import { Switch, Route } from 'react-router-dom';
 
 import actions from '../../actions';
 
-import ProductsShop from '../ProductsShop';
+import FoodsShop from '../FoodsShop';
 import BrandsShop from '../BrandsShop';
 import CategoryShop from '../CategoryShop';
 
@@ -30,7 +30,7 @@ class Shop extends React.PureComponent {
     return (
       <div className='shop'>
         <Switch>
-          <Route exact path='/shop' component={ProductsShop} />
+          <Route exact path='/shop' component={FoodsShop} />
           <Route path='/shop/category/:slug' component={CategoryShop} />
           <Route path='/shop/brand/:slug' component={BrandsShop} />
           <Route path='*' component={Page404} />

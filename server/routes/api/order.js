@@ -4,7 +4,7 @@ const router = express.Router();
 // Bring in Models & Helpers
 const Order = require('../../models/order');
 const Cart = require('../../models/cart');
-const Product = require('../../models/product');
+const Food = require('../../models/food');
 const auth = require('../../middleware/auth');
 const mailgun = require('../../services/mailgun');
 const taxConfig = require('../../config/tax');
@@ -26,7 +26,7 @@ router.post('/add', auth, async (req, res) => {
     await Order.findById(orderDoc._id).populate('cart user', '-password');
 
     const cartDoc = await Cart.findById(orderDoc.cart._id).populate({
-      path: 'products.product',
+      path: 'foods.food',
       populate: {
         path: 'brand'
       }
@@ -37,7 +37,7 @@ router.post('/add', auth, async (req, res) => {
       created: orderDoc.created,
       user: orderDoc.user,
       total: orderDoc.total,
-      products: cartDoc.products
+      foods: cartDoc.foods
     };
 
     await mailgun.sendEmail(order.user.email, 'order-confirmation', newOrder);
@@ -72,7 +72,7 @@ router.get('/list', auth, async (req, res) => {
         const cartId = doc.cart._id;
 
         const cart = await Cart.findById(cartId).populate({
-          path: 'products.product',
+          path: 'foods.food',
           populate: {
             path: 'brand'
           }
@@ -82,7 +82,7 @@ router.get('/list', auth, async (req, res) => {
           _id: doc._id,
           total: parseFloat(Number(doc.total.toFixed(2))),
           created: doc.created,
-          products: cart.products
+          foods: cart.foods
         };
 
         newDataSet.push(order);
@@ -122,7 +122,7 @@ router.get('/:orderId', auth, async (req, res) => {
     }
 
     const cart = await Cart.findById(orderDoc.cart._id).populate({
-      path: 'products.product',
+      path: 'foods.food',
       populate: {
         path: 'brand'
       }
@@ -134,7 +134,7 @@ router.get('/:orderId', auth, async (req, res) => {
       total: orderDoc.total,
       totalTax: 0,
       created: cart.created,
-      products: cart.products
+      foods: cart.foods
     };
 
     order = caculateTaxAmount(order);
@@ -156,7 +156,7 @@ router.delete('/cancel/:orderId', auth, async (req, res) => {
     const order = await Order.findOne({ _id: orderId });
     const foundCart = await Cart.findOne({ _id: order.cart });
 
-    increaseQuantity(foundCart.products);
+    increaseQuantity(foundCart.foods);
 
     await Order.deleteOne({ _id: orderId });
     await Cart.deleteOne({ _id: order.cart });
@@ -177,26 +177,26 @@ router.put('/cancel/item/:itemId', auth, async (req, res) => {
     const orderId = req.body.orderId;
     const cartId = req.body.cartId;
 
-    const foundCart = await Cart.findOne({ 'products._id': itemId });
-    const foundCartProduct = foundCart.products.find(p => p._id == itemId);
+    const foundCart = await Cart.findOne({ 'foods._id': itemId });
+    const foundCartFood = foundCart.foods.find(p => p._id == itemId);
 
     await Cart.updateOne(
-      { 'products._id': itemId },
+      { 'foods._id': itemId },
       {
-        'products.$.status': 'Cancelled'
+        'foods.$.status': 'Cancelled'
       }
     );
 
-    await Product.updateOne(
-      { _id: foundCartProduct.product },
+    await Food.updateOne(
+      { _id: foundCartFood.food },
       { $inc: { quantity: 1 } }
     );
 
     const cart = await Cart.findOne({ _id: cartId });
-    const items = cart.products.filter(item => item.status === 'Cancelled');
+    const items = cart.foods.filter(item => item.status === 'Cancelled');
 
     // All items are cancelled => Cancel order
-    if (cart.products.length === items.length) {
+    if (cart.foods.length === items.length) {
       await Order.deleteOne({ _id: orderId });
       await Cart.deleteOne({ _id: cartId });
 
@@ -224,11 +224,11 @@ const caculateTaxAmount = order => {
 
   order.totalTax = 0;
 
-  if (order.products && order.products.length > 0) {
-    order.products.map(item => {
-      if (item.product) {
-        if (item.product.taxable) {
-          const price = Number(item.product.price).toFixed(2);
+  if (order.foods && order.foods.length > 0) {
+    order.foods.map(item => {
+      if (item.food) {
+        if (item.food.taxable) {
+          const price = Number(item.food.price).toFixed(2);
           const taxAmount = Math.round(price * taxRate * 100) / 100;
           item.priceWithTax = parseFloat(price) + parseFloat(taxAmount);
           order.totalTax += taxAmount;
@@ -249,17 +249,17 @@ const caculateTaxAmount = order => {
   return order;
 };
 
-const increaseQuantity = products => {
-  let bulkOptions = products.map(item => {
+const increaseQuantity = foods => {
+  let bulkOptions = foods.map(item => {
     return {
       updateOne: {
-        filter: { _id: item.product },
+        filter: { _id: item.food },
         update: { $inc: { quantity: +item.quantity } }
       }
     };
   });
 
-  Product.bulkWrite(bulkOptions);
+  Food.bulkWrite(bulkOptions);
 };
 
 module.exports = router;

@@ -19,9 +19,9 @@ const AddCategory = props => {
     formErrors,
     categoryChange,
     addCategory,
-    products,
-    selectedProducts,
-    handleProductSelect
+    foods,
+    selectedFoods,
+    handleFoodselect
   } = props;
 
   const handleSubmit = event => {
@@ -61,13 +61,13 @@ const AddCategory = props => {
           </Col>
           <Col xs='12' md='12'>
             <SelectOption
-              error={formErrors['products']}
-              label={'Select Products'}
+              error={formErrors['foods']}
+              label={'Select Foods'}
               multi={true}
-              options={products}
-              value={selectedProducts}
+              options={foods}
+              value={selectedFoods}
               handleSelectChange={value => {
-                handleProductSelect(value);
+                handleFoodselect(value);
               }}
             />
           </Col>

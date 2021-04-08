@@ -1,6 +1,6 @@
 /*
  *
- * Product
+ * Food
  *
  */
 
@@ -16,17 +16,17 @@ import Add from './Add';
 import Edit from './Edit';
 import Page404 from '../../components/Common/Page404';
 
-class Product extends React.PureComponent {
+class Food extends React.PureComponent {
   render() {
     const { user } = this.props;
 
     return (
-      <div className='product-dashboard'>
+      <div className='food-dashboard'>
         <Switch>
-          <Route exact path='/dashboard/product' component={List} />
-          <Route exact path='/dashboard/product/edit/:id' component={Edit} />
+          <Route exact path='/dashboard/food' component={List} />
+          <Route exact path='/dashboard/food/edit/:id' component={Edit} />
           {/* {user.role === 'ROLE_ADMIN' && ( */}
-          <Route exact path='/dashboard/product/add' component={Add} />
+          <Route exact path='/dashboard/food/add' component={Add} />
           {/* )} */}
           <Route path='*' component={Page404} />
         </Switch>
@@ -41,4 +41,4 @@ const mapStateToProps = state => {
   };
 };
 
-export default connect(mapStateToProps, actions)(Product);
+export default connect(mapStateToProps, actions)(Food);

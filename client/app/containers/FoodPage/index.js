@@ -1,6 +1,6 @@
 /**
  *
- * ProductPage
+ * FoodPage
  *
  */
 
@@ -18,53 +18,53 @@ import { BagIcon } from '../../components/Common/Icon';
 import NotFound from '../../components/Common/NotFound';
 import LoadingIndicator from '../../components/Common/LoadingIndicator';
 
-class ProductPage extends React.PureComponent {
+class FoodPage extends React.PureComponent {
   componentDidMount() {
     const slug = this.props.match.params.slug;
-    this.props.fetchStoreProduct(slug);
-    document.body.classList.add('product-page');
+    this.props.fetchStoreFood(slug);
+    document.body.classList.add('food-page');
   }
 
   componentDidUpdate(prevProps) {
     if (this.props.match.params.slug !== prevProps.match.params.slug) {
       const slug = this.props.match.params.slug;
-      this.props.fetchStoreProduct(slug);
+      this.props.fetchStoreFood(slug);
     }
   }
 
   componentWillUnmount() {
-    document.body.classList.remove('product-page');
+    document.body.classList.remove('food-page');
   }
 
   render() {
     const {
       isLoading,
-      product,
-      productShopData,
+      food,
+      foodshopData,
       shopFormErrors,
       itemsInCart,
-      productShopChange,
+      foodshopChange,
       handleAddToCart,
       handleRemoveFromCart
     } = this.props;
 
     return (
-      <div className='product-shop'>
+      <div className='food-shop'>
         {isLoading ? (
           <LoadingIndicator />
-        ) : Object.keys(product).length > 0 ? (
+        ) : Object.keys(food).length > 0 ? (
           <Row className='flex-row'>
             <Col xs='12' md='5' lg='5' className='mb-3 px-3 px-md-2'>
               <div className='position-relative'>
                 <img
                   className='item-image'
                   src={`${
-                    product.imageUrl
-                      ? product.imageUrl
+                    food.imageUrl
+                      ? food.imageUrl
                       : '/images/placeholder-image.png'
                   }`}
                 />
-                {product.inventory <= 0 && !shopFormErrors['quantity'] ? (
+                {food.inventory <= 0 && !shopFormErrors['quantity'] ? (
                   <p className='stock out-of-stock'>Out of stock</p>
                 ) : (
                   <p className='stock in-stock'>In stock</p>
@@ -72,27 +72,27 @@ class ProductPage extends React.PureComponent {
               </div>
             </Col>
             <Col xs='12' md='7' lg='7' className='mb-3 px-3 px-md-2'>
-              <div className='product-container'>
+              <div className='food-container'>
                 <div className='item-box'>
                   <div className='item-details'>
                     <h1 className='item-name one-line-ellipsis'>
-                      {product.name}
+                      {food.name}
                     </h1>
-                    <p className='sku'>{product.sku}</p>
+                    <p className='sku'>{food.sku}</p>
                     <hr />
-                    {product.brand && (
+                    {food.brand && (
                       <p className='by'>
                         see more from{' '}
                         <Link
-                          to={`/shop/brand/${product.brand.slug}`}
+                          to={`/shop/brand/${food.brand.slug}`}
                           className='default-link'
                         >
-                          {product.brand.name}
+                          {food.brand.name}
                         </Link>
                       </p>
                     )}
-                    <p className='item-desc'>{product.description}</p>
-                    <p className='price'>${product.price}</p>
+                    <p className='item-desc'>{food.description}</p>
+                    <p className='price'>${food.price}</p>
                   </div>
                   <div className='item-customize'>
                     <Input
@@ -102,39 +102,39 @@ class ProductPage extends React.PureComponent {
                       name={'quantity'}
                       decimals={false}
                       min={1}
-                      max={product.inventory}
-                      placeholder={'Product Quantity'}
+                      max={food.inventory}
+                      placeholder={'Food Quantity'}
                       disabled={
-                        product.inventory <= 0 && !shopFormErrors['quantity']
+                        food.inventory <= 0 && !shopFormErrors['quantity']
                       }
-                      value={productShopData.quantity}
+                      value={foodshopData.quantity}
                       onInputChange={(name, value) => {
-                        productShopChange(name, value);
+                        foodshopChange(name, value);
                       }}
                     />
                   </div>
                   <div className='item-actions'>
-                    {itemsInCart.includes(product._id) ? (
+                    {itemsInCart.includes(food._id) ? (
                       <Button
                         variant='primary'
                         disabled={
-                          product.inventory <= 0 && !shopFormErrors['quantity']
+                          food.inventory <= 0 && !shopFormErrors['quantity']
                         }
                         text='Remove From Bag'
                         className='bag-btn'
                         icon={<BagIcon />}
-                        onClick={() => handleRemoveFromCart(product)}
+                        onClick={() => handleRemoveFromCart(food)}
                       />
                     ) : (
                       <Button
                         variant='primary'
                         disabled={
-                          product.quantity <= 0 && !shopFormErrors['quantity']
+                          food.quantity <= 0 && !shopFormErrors['quantity']
                         }
                         text='Add To Bag'
                         className='bag-btn'
                         icon={<BagIcon />}
-                        onClick={() => handleAddToCart(product)}
+                        onClick={() => handleAddToCart(food)}
                       />
                     )}
                   </div>
@@ -143,7 +143,7 @@ class ProductPage extends React.PureComponent {
             </Col>
           </Row>
         ) : (
-          <NotFound message='no product found.' />
+          <NotFound message='no food found.' />
         )}
       </div>
     );
@@ -152,12 +152,12 @@ class ProductPage extends React.PureComponent {
 
 const mapStateToProps = state => {
   return {
-    product: state.product.storeProduct,
-    productShopData: state.product.productShopData,
-    shopFormErrors: state.product.shopFormErrors,
+    food: state.food.storeFood,
+    foodshopData: state.food.foodshopData,
+    shopFormErrors: state.food.shopFormErrors,
     itemsInCart: state.cart.itemsInCart,
-    isLoading: state.product.isLoading
+    isLoading: state.food.isLoading
   };
 };
 
-export default connect(mapStateToProps, actions)(ProductPage);
+export default connect(mapStateToProps, actions)(FoodPage);
