@@ -70,18 +70,23 @@ class Navigation extends React.PureComponent {
             <Col
               xs={{ size: 12, order: 1 }}
               sm={{ size: 12, order: 1 }}
-              md={{ size: 3, order: 1 }}
-              lg={{ size: 3, order: 1 }}
+              md={{ size: 5, order: 1 }}
+              lg={{ size: 5, order: 1 }}
             >
               <div className='brand'>
-                {/* <Button
-                  className='d-none d-md-block'
+                <Button
+                  className='hamburger-button d-none d-md-block'
                   ariaLabel='open the menu'
                   icon={<BarsIcon />}
                   onClick={() => this.toggleMenu()}
-                /> */}
+                />
                 <Link to='/'>
-                  <h1 className='logo'>eatComplete</h1>
+                  {/* <h1 className='logo'> */}
+                    <img
+                      className='logo-image'
+                      src='/images/eatComplete-logo.png'
+                    />
+                  {/* </h1> */}
                 </Link>
               </div>
             </Col>
@@ -104,8 +109,8 @@ class Navigation extends React.PureComponent {
             <Col
               xs={{ size: 12, order: 2 }}
               sm={{ size: 12, order: 2 }}
-              md={{ size: 9, order: 1 }}
-              lg={{ size: 9, order: 3 }}
+              md={{ size: 7, order: 1 }}
+              lg={{ size: 7, order: 3 }}
             >
               <Navbar color='light' light expand='md' className='mt-1 mt-md-0'>
                 <CartIcon
@@ -114,7 +119,7 @@ class Navigation extends React.PureComponent {
                   onClick={toggleCart}
                 />
                 <Nav navbar>
-                  <NavItem>
+                  {/* <NavItem>
                     <NavLink
                       tag={ActiveLink}
                       to='/shop'
@@ -122,12 +127,11 @@ class Navigation extends React.PureComponent {
                     >
                       Foods
                     </NavLink>
-                  </NavItem>
+                  </NavItem> */}
                   {authenticated ? (
                     <UncontrolledDropdown nav inNavbar>
                       <DropdownToggle nav>
                         {user.firstName ? user.firstName : 'Welcome'}
-                        <span className='fa fa-menu'></span>
                         <span className='fa fa-chevron-down dropdown-caret'></span>
                       </DropdownToggle>
                       <DropdownMenu right>
@@ -142,7 +146,8 @@ class Navigation extends React.PureComponent {
                   ) : (
                     <UncontrolledDropdown nav inNavbar>
                       <DropdownToggle nav>
-                        Welcome!
+                        {/* Welcome! */}
+                        <span className='fa fa-user'></span>
                         <span className='fa fa-chevron-down dropdown-caret'></span>
                       </DropdownToggle>
                       <DropdownMenu right>

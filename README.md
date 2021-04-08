@@ -4,7 +4,7 @@ Last Updated: 2021 April 7
 
 ## Description
 
-An app utilizing USDA nutritional data to help users identify missing nutrients in their diets and to identify the best whole foods to nourish those deficiencies. The app is built with MERN stack modeled after a template provided by [Mohamed Samara](https://github.com/mohamedsamara), and utilizes third party API's.
+An app utilizing USDA nutritional data to help you identify missing nutrients in your diet and to select the best whole foods to nourish those deficiencies. The app is built with MERN stack modeled after a template provided by [Mohamed Samara](https://github.com/mohamedsamara), and utilizes third party API's.
 
 It works like this:
 

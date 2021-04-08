@@ -40,15 +40,15 @@ const Footer = () => {
         <div className='footer-content'>
           <div className='footer-block'>
             <div className='block-title'>
-              <h2>Customer Service</h2>
+              <h2>About eatComplete</h2>
             </div>
             <div className='block-content'>
-              <ul>{footerLinks}</ul>
+              <p className='footer-description'>An app utilizing USDA nutritional data to help you identify missing nutrients in your diet and to select the best whole foods to nourish those deficiencies.</p>
             </div>
           </div>
           <div className='footer-block'>
             <div className='block-title'>
-              <h2>Links</h2>
+              <h2>Quick Links</h2>
             </div>
             <div className='block-content'>
               <ul>{footerLinks}</ul>
