@@ -13,7 +13,6 @@
   "ROLE_MERCHANT": [
     { "to": "", "name": "Account Details" },
     { "to": "/security", "name": "Account Security" },
-    { "to": "/address", "name": "Address" },
     { "to": "/brand", "name": "Manage Brands" },
     { "to": "/food", "name": "Manage Foods" },
     { "to": "/orders", "name": "Manage Orders" }
@@ -21,7 +20,6 @@
   "ROLE_MEMBER": [
     { "to": "", "name": "Account Details" },
     { "to": "/security", "name": "Account Security" },
-    { "to": "/address", "name": "Address" },
     { "to": "/orders", "name": "Manage Orders" }
   ]
 }

@@ -14,7 +14,6 @@ import Page404 from '../../Common/Page404';
 
 import Account from '../../../containers/Account';
 import AccountSecurity from '../../../containers/AccountSecurity';
-import Address from '../../../containers/Address';
 import Order from '../../../containers/Order';
 import Users from '../../../containers/Users';
 import Category from '../../../containers/Category';
@@ -38,7 +37,6 @@ const Admin = props => {
                 path='/dashboard/security'
                 component={AccountSecurity}
               />
-              <Route path='/dashboard/address' component={Address} />
               <Route path='/dashboard/food' component={Food} />
               <Route path='/dashboard/category' component={Category} />
               <Route path='/dashboard/brand' component={Brand} />
