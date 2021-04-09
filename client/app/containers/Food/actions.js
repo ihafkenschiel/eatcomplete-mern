@@ -89,8 +89,13 @@ export const fetchStoreFoods = () => {
   return async (dispatch, getState) => {
     dispatch({ type: SET_FOODS_LOADING, payload: true });
 
+    console.log("DEBUG: fetchStoreFoods")
+
     try {
       const response = await axios.get(`/api/food/list`);
+
+      console.log(response.data);
+
       dispatch({
         type: FETCH_STORE_FOODS,
         payload: response.data.foods
@@ -127,11 +132,14 @@ export const fetchStoreFood = slug => {
   return async (dispatch, getState) => {
     dispatch({ type: SET_FOODS_LOADING, payload: true });
 
+    console.log("DEBUG! - fetchStoreFood");
+
     try {
       const response = await axios.get(`/api/food/item/${slug}`);
 
-      const inventory = response.data.food.quantity;
-      const food = { ...response.data.food, inventory };
+      console.log(response.data);
+
+      const food = { ...response.data.food };
 
       dispatch({
         type: FETCH_STORE_FOOD,

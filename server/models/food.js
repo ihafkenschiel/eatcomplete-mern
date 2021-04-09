@@ -12,52 +12,38 @@ Mongoose.plugin(slug, options);
 
 // Food Schema
 const Foodschema = new Schema({
-  sku: {
-    type: String
+  id: {
+    type: Number,
+    unique: true
   },
   name: {
     type: String,
     trim: true
   },
-  slug: {
-    type: String,
-    slug: 'name',
-    unique: true
+  weight: {
+    type: Number
   },
-  imageUrl: {
-    type: String
-  },
-  imageKey: {
-    type: String
-  },
-  description: {
+  measure: {
     type: String,
     trim: true
   },
   quantity: {
     type: Number
   },
-  price: {
+  quantity_measurement: {
+    type: String,
+    trim: true
+  },
+  nutrient: {
+    type: String,
+    trim: true
+  },
+  percent_rda: {
     type: Number
-  },
-  taxable: {
-    type: Boolean,
-    default: false
-  },
-  isActive: {
-    type: Boolean,
-    default: true
-  },
-  brand: {
-    type: Schema.Types.ObjectId,
-    ref: 'Brand',
-    default: null
-  },
-  updated: Date,
-  created: {
-    type: Date,
-    default: Date.now
   }
+},
+{
+  collection: 'foods'
 });
 
 module.exports = Mongoose.model('Food', Foodschema);

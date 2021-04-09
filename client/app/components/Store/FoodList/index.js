@@ -26,13 +26,13 @@ const FoodList = props => {
               <div className='item-box'>
                 <div className='item-body'>
                   <Link to={`/food/${food.slug}`} className='item-link'>
-                    <img
+                    {/* <img
                       src={`${
                         food.imageUrl
                           ? food.imageUrl
                           : '/images/placeholder-image.png'
                       }`}
-                    />
+                    /> */}
                     <div className='item-details p-3'>
                       <h1 className='item-name'>{food.name}</h1>
                       {food.brand && (
@@ -44,14 +44,14 @@ const FoodList = props => {
                     </div>
                   </Link>
                 </div>
-                <div className='item-footer px-3'>
+                {/* <div className='item-footer px-3'>
                   <p className='price'>${food.price}</p>
-                  {/* {food.quantity > 0 ? (
+                  {food.quantity > 0 ? (
                       <p className='stock in-stock'>In stock</p>
                     ) : (
                       <p className='stock out-of-stock'>Out of stock</p>
-                    )} */}
-                </div>
+                    )} 
+                </div> */}
               </div>
             </div>
           </Col>

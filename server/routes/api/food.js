@@ -13,112 +13,17 @@ const role = require('../../middleware/role');
 const storage = multer.memoryStorage();
 const upload = multer({ storage });
 
-router.post(
-  '/add',
-  auth,
-  role.checkRole(role.ROLES.Admin, role.ROLES.Merchant),
-  upload.single('image'),
-  async (req, res) => {
-    try {
-      const sku = req.body.sku;
-      const name = req.body.name;
-      const description = req.body.description;
-      const quantity = req.body.quantity;
-      const price = req.body.price;
-      const taxable = req.body.taxable;
-      const isActive = req.body.isActive;
-      const brand = req.body.brand != 0 ? req.body.brand : null;
-      const image = req.file;
-
-      if (!sku) {
-        return res.status(400).json({ error: 'You must enter sku.' });
-      }
-
-      if (!description || !name) {
-        return res
-          .status(400)
-          .json({ error: 'You must enter description & name.' });
-      }
-
-      if (!quantity) {
-        return res.status(400).json({ error: 'You must enter a quantity.' });
-      }
-
-      if (!price) {
-        return res.status(400).json({ error: 'You must enter a price.' });
-      }
-
-      const foundFood = await Food.findOne({ sku });
-
-      if (foundFood) {
-        return res.status(400).json({ error: 'This sku is already in use.' });
-      }
-
-      let imageUrl = '';
-      let imageKey = '';
-
-      if (image) {
-        const s3bucket = new AWS.S3({
-          accessKeyId: process.env.AWS_ACCESS_KEY_ID,
-          secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
-          region: process.env.AWS_REGION
-        });
-
-        const params = {
-          Bucket: process.env.AWS_BUCKET_NAME,
-          Key: image.originalname,
-          Body: image.buffer,
-          ContentType: image.mimetype,
-          ACL: 'public-read'
-        };
-
-        const s3Upload = await s3bucket.upload(params).promise();
-
-        imageUrl = s3Upload.Location;
-        imageKey = s3Upload.key;
-      }
-
-      const food = new Food({
-        sku,
-        name,
-        description,
-        quantity,
-        price,
-        taxable,
-        isActive,
-        brand,
-        imageUrl,
-        imageKey
-      });
-
-      const savedFood = await food.save();
-
-      res.status(200).json({
-        success: true,
-        message: `Food has been added successfully!`,
-        food: savedFood
-      });
-    } catch (error) {
-      return res.status(400).json({
-        error: 'Your request could not be processed. Please try again.'
-      });
-    }
-  }
-);
-
 // fetch store foods api
 router.get('/list', async (req, res) => {
   try {
-    const foods = await Food.find({ isActive: true }).populate(
-      'brand',
-      'name'
-    );
+    const foods = await Food.find().populate();
     res.status(200).json({
       foods
     });
   } catch (error) {
     res.status(400).json({
       error: 'Your request could not be processed. Please try again.'
+      // error
     });
   }
 });
