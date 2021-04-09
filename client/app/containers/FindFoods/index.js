@@ -35,13 +35,13 @@ class FindFoods extends React.PureComponent {
                     </div>
                     <br />
                     <div>
-                        <button type="button" class="btn btn-default btn-sm green"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></button>
+                        <button type="button" class="btn btn-default btn-sm"><span class="fa fa-plus-square green" aria-hidden="true"></span></button>
                         Food Name
                     </div>
 
                     <br />
                     <div class="text-center">
-                        Pagination
+                        Result 1 of 1
                     </div>
 
                     <br /><br />

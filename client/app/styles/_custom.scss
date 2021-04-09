@@ -9,12 +9,6 @@
     margin: 10px;
 }
 
-@media (max-width: 768px) { // Small and XS
-    .logo-image {
-
-    }
-}
-
 .footer-description {
     padding-right: 20px;
 }
@@ -26,4 +20,12 @@
 .btn-primary {
     background-color: #FF6540 !important;
     border-color: white !important;
+}
+
+.green {
+    color: #A3C700;
+}
+
+.pink {
+    color: #FF6540;
 }
